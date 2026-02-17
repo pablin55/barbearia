@@ -243,17 +243,16 @@
 
     <div class="row align-items-center py-3 px-xl-5 m-0">
         <div class="col-lg-3 d-none d-lg-block">
-            <img src="{{ asset('img/pbar.png') }}" alt="Pablo Barbearia" style="height: 120px;">
+                   <img src="{{ asset('img/pbar.png') }}" alt="Pablo Barbearia" style="height: 120px;">
         </div>
 
         <div class="col-lg-6">
             <nav class="navbar navbar-expand-lg navbar-light py-3 py-lg-0 justify-content-center">
-                <div class="navbar-nav">
+               <div class="navbar-nav">
                     <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
                     <a href="{{ route('servicos') }}" class="nav-item nav-link">Serviços</a>
                     <a href="{{ route('equipe') }}" class="nav-item nav-link active">Equipe</a>
                 </div>
-
 
             </nav>
         </div>
@@ -305,31 +304,8 @@
 <!-- SOBRE NÓS (AGORA CORRETAMENTE ABAIXO DAS IMAGENS) -->
 <section class="about-section">
     <article class="about-article">
-        <h2>Sobre <span>Pablo Barbearia</span></h2>
+        <h2>Sobre a <span>Pablo Barbearia</span></h2>
 
-        <p>
-            A <strong>Pablo Barbearia</strong> nasceu com o propósito de oferecer mais do que um corte de cabelo.
-            Aqui, cada detalhe é pensado para proporcionar uma experiência única, unindo estilo, conforto
-            e atendimento de alto nível dentro de uma comunidade no bairro do cristo.
-        </p>
-
-        <p>
-    Fundada em <strong>2018</strong>, a Pablo Barbearia nasceu com a missão de elevar o conceito de cuidado masculino,
-    unindo técnica, estilo e atendimento de excelência. Desde o início, o foco sempre foi oferecer muito mais
-    do que um simples corte, mas uma experiência completa para cada cliente.
-    <br><br>
-    À frente da barbearia está <strong>Pablo Apolinário Alves</strong>, CEO e fundador, profissional com
-    anos de experiência no mercado de trabalho e profundo conhecimento na arte da barbearia.
-    Sua trajetória é marcada pela dedicação, constante evolução e compromisso em entregar
-    qualidade, confiança e identidade em cada detalhe.
-        </p>
-
-
-        <p>
-            Trabalhamos com técnicas modernas, produtos de qualidade e profissionais qualificados,
-            sempre respeitando o estilo e a personalidade de cada cliente.
-            Nosso ambiente foi criado para quem valoriza excelência e tradição.
-        </p>
 
         <p class="about-highlight">
             Mais do que uma barbearia, somos um espaço de confiança, identidade e atitude.
