@@ -268,13 +268,20 @@
 .about-header {
     text-align: center;
     margin-bottom: 40px;
+    background: linear-gradient(
+        180deg,
+        #141414 0%,
+        #0e0e0e 50%,
+        #0e0e0e 100%
+    );
 }
 
 .about-divider {
     width: 80px;
     height: 3px;
     background: var(--accent);
-    margin: 15px auto 0;
+    margin: 25px auto 0;
+    margin-bottom: 30px;
     border-radius: 3px;
 }
 
@@ -313,7 +320,6 @@
 /* SECTION DIFERENCIAIS */
 .features-section {
     padding: 80px 20px;
-    background: linear-gradient(180deg, #141414 0%, #0e0e0e 100%);
     display: flex;
     justify-content: center;
 }
@@ -322,24 +328,44 @@
     max-width: 1100px;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    
+}
+
+@media (max-width: 1200px) {
+    .features-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .features-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .features-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* CARDS */
 .feature-card {
-    background: #111;
+     background: #111;
     padding: 35px 25px;
     border-radius: 15px;
     text-align: center;
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: 0.3s ease;
+    border-top: 3px solid var(--accent);
+    transition: all 0.3s ease;
     box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
-
 .feature-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--accent);
+    transform: translateY(-10px);
 }
 
 /* ÍCONE */
@@ -347,6 +373,10 @@
     font-size: 35px;
     color: var(--accent);
     margin-bottom: 15px;
+    transition: 0.3s ease;
+}
+.feature-card:hover .feature-icon {
+    transform: scale(1.15);
 }
 
 /* TÍTULO */
@@ -361,6 +391,7 @@
     font-size: 0.95rem;
     color: #aaa;
     line-height: 1.6;
+    
 }
 
 /* RESPONSIVO */
@@ -375,6 +406,35 @@
         grid-template-columns: 1fr;
     }
 }
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1100px;
+    gap: 50px;
+    align-items: center;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+    border-left: 6px solid var(--accent);
+    border-top: 6px solid var(--accent);
+}
+
+.about-content h2 span {
+    background: linear-gradient(to right, #d2a056, #9e7c2f, #e3a74e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    text-align: center;
+}
+
+@media (max-width: 992px) 
+    .about-container {
+        grid-template-columns: 1fr;
+    }
+
 </style>
 </head>
 
@@ -447,72 +507,79 @@
 
 <!-- SOBRE NÓS (AGORA CORRETAMENTE ABAIXO DAS IMAGENS) -->
 <section class="about-section">
-    <article class="about-article">
+    <div class="about-container">
 
-        <div class="about-header">
-            <h2>Sobre <span>Pablo Barbearia</span></h2>
+        <div class="about-image">
+            <img src="img/barbearia.jpeg" alt="Pablo Barbearia">
+        </div>
+
+        <article class="about-content">
+            <h2 style="color:#fff;">Sobre <span>Pablo Barbearia</span></h2>
             <div class="about-divider"></div>
-        </div>
 
-        <p>
-            A <strong class="gold">Pablo Barbearia</strong> é referência em cuidado masculino desde 2018.
-            Mais do que cortes de cabelo, entregamos experiência, precisão técnica
-            e um atendimento que valoriza a identidade de cada cliente.
-        </p>
-
-        <p>
-            Fundada por <strong class="gold">Pablo Apolinário Alves</strong>, a barbearia nasceu
-            com a missão de elevar o padrão do serviço na região do Cristo,
-            oferecendo estrutura moderna, ambiente sofisticado e profissionais
-            altamente qualificados.
-        </p>
-
-        <p>
-            Trabalhamos com cortes clássicos, modernos, degradês, barba desenhada
-            e atendimento especializado para crianças — incluindo crianças autistas —
-            sempre com respeito, paciência e atenção personalizada.
-        </p>
-
-        <div class="about-destaque-box">
             <p>
-                Também oferecemos <strong class="gold">curso profissional de barbearia</strong>,
-                formando novos barbeiros com técnica, postura e visão empreendedora.
+                Desde 2018, a <strong class="gold">Pablo Barbearia</strong> é referência em cuidado masculino no Cristo.
+                Unimos técnica, precisão e atendimento personalizado para valorizar a identidade de cada cliente.
             </p>
-        </div>
 
-        <p class="about-highlight">
-            Mais do que uma barbearia, um espaço de confiança, identidade e atitude.
-        </p>
+            <p>
+                Fundada por <strong class="gold">Pablo Apolinário Alves</strong>,
+                a barbearia nasceu com a missão de elevar o padrão do serviço na região,
+                oferecendo estrutura moderna, ambiente sofisticado e profissionais qualificados.
+            </p>
 
-    </article>
+            <div class="about-destaque-box">
+                Atendimento especializado para crianças e crianças autistas,
+                com respeito, paciência e sensibilidade.
+            </div>
+
+            <p class="about-highlight">
+                Mais que um corte. Uma experiência.
+            </p>
+
+        </article>
+
+    </div>
 </section>
+
+<!-- DIFERENCIAIS -->
+<div class="about-header" style="text-align:center; margin-bottom:50px; color:#fff;">
+    <h2 style="color:#fff;">Nossos <span class="gold">Diferenciais</span></h2>
+    <div class="about-divider"></div>
+</div>
+
 <!-- cards -->
 <section class="features-section">
     <div class="features-container">
+    <div class="feature-card">
+    <i class="fas fa-snowflake feature-icon"></i>
+    <h4>Ambiente Climatizado</h4>
+    <p>Conforto térmico garantido durante todo o seu atendimento.</p>
+</div>
 
-        <div class="feature-card">
-            <i class="fas fa-wifi feature-icon"></i>
-            <h4>Wi-Fi Gratuito</h4>
-            <p>Internet rápida e gratuita para você aproveitar enquanto aguarda seu atendimento.</p>
-        </div>
+<div class="feature-card">
+    <i class="fas fa-wifi feature-icon"></i>
+    <h4>Wi-Fi Gratuito</h4>
+    <p>Internet rápida seu conforto enquanto aguarda.</p>
+</div>
 
-        <div class="feature-card">
-            <i class="fas fa-child feature-icon"></i>
-            <h4>Atendimento Infantil</h4>
-            <p>Ambiente preparado para atender crianças com paciência, cuidado e atenção especial.</p>
-        </div>
+<div class="feature-card">
+    <i class="fas fa-child feature-icon"></i>
+    <h4>Atendimento Infantil</h4>
+    <p>Ambiente preparado para atender crianças com cuidado e paciência.</p>
+</div>
 
-        <div class="feature-card">
-            <i class="fas fa-puzzle-piece feature-icon"></i>
-            <h4>Crianças com Autismo</h4>
-            <p>Atendimento humanizado e adaptado para crianças autistas, com respeito e sensibilidade.</p>
-        </div>
+<div class="feature-card">
+    <i class="fas fa-puzzle-piece feature-icon"></i>
+    <h4>Inclusão e Respeito</h4>
+    <p>Atendimento humanizado e adaptado para crianças autistas.</p>
+</div>
 
-        <div class="feature-card">
-            <i class="fas fa-graduation-cap feature-icon"></i>
-            <h4>Curso Profissional</h4>
-            <p>Formação completa para novos barbeiros com técnica, prática e visão empreendedora.</p>
-        </div>
+<div class="feature-card">
+    <i class="fas fa-graduation-cap feature-icon"></i>
+    <h4>Curso Profissional</h4>
+    <p>Formação completa para novos barbeiros com visão empreendedora.</p>
+</div>
 
     </div>
 </section>
@@ -536,7 +603,7 @@
                 <h5 class="footer-section-title">Contato</h5>
 
                 <p class="footer-contact-item">
-                    📱  📱 (83)9 9623-2639
+                    📱   (83)9 9623-2639
                 </p>
 
                 <p class="footer-contact-item">
