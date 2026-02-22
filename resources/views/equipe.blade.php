@@ -276,7 +276,7 @@
             <div class="col-md-4">
                 <div class="team-card">
                     <div class="team-image">
-                        <img src="img/juan.jpeg" alt="Barbeiro 1">
+                        <img src="img/juan1.jpeg" alt="Barbeiro 1">
                     </div>
                     <h4>Juan Pablo</h4>
                     <div class="team-social">
@@ -313,10 +313,30 @@
                 </div>
             </div>
 
+            <div class="col-md-4">
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="" alt="Barbeiro 1">
+                    </div>
+                    <h4>Wesley "WS"</h4>
+                    <div class="team-social">
+                        <a class="team-social-link" href="https://wa.me/558396232639" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a class="team-social-link" href="https://www.instagram.com/pablo_barbearia" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <p class="team-description">
+                       Telefone e instagram para entrar em contato com o barbeiro para tirar dúvidas sobre os serviços oferecidos.
+                    </p>
+                </div>
+            </div>
+
              <div class="col-md-4">
                 <div class="team-card">
                     <div class="team-image">
-                        <img src="img/vn.jpeg" alt="Barbeiro 1">
+                        <img src="img/vn3.jpeg" alt="Barbeiro 1">
                     </div>
                     <h4>Vinícius "VN"</h4>
                     <div class="team-social">
