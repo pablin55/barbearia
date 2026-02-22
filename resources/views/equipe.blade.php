@@ -288,15 +288,30 @@
     <img src="{{ asset('img/pbar.png') }}" alt="Pablo Barbearia" style="height: 120px;">
         </div>
 
-        <div class="col-lg-6">
+         <div class="col-lg-6">
             <nav class="navbar navbar-expand-lg navbar-light py-3 py-lg-0 justify-content-center">
-               <div class="navbar-wrapper">
-    <div class="navbar-nav custom-nav-box">
-        <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
-        <a href="{{ route('servicos') }}" class="nav-item nav-link">Serviços</a>
-        <a href="{{ route('equipe') }}" class="nav-item nav-link active">Equipe</a>
+    <div class="navbar-wrapper">
+        <div class="navbar-nav custom-nav-box">
+
+            <a href="{{ route('home') }}"
+               class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
+               Home
+            </a>
+
+            <a href="{{ route('servicos') }}"
+               class="nav-item nav-link {{ request()->routeIs('servicos') ? 'active' : '' }}">
+               Serviços
+            </a>
+
+            <a href="{{ route('equipe') }}"
+               class="nav-item nav-link {{ request()->routeIs('equipe') ? 'active' : '' }}">
+               Equipe
+            </a>
+
+        </div>
     </div>
-</div>
+</nav>
+        </div>
 
         <div class="col-lg-3 d-none d-lg-block"></div>
     </div>

@@ -42,7 +42,7 @@
         border-color: #b18d3f;
     }
 
-    .navbar-light .navbar-nav .nav-link{
+    .navbar-light .navbar-nav .nav-link {
         color: #e0e0e0;
     }
 
@@ -86,7 +86,6 @@
         background-color: #b18d3f;
         color: #000;
         transform: translateY(-2px);
-        text-decoration: none;
     }
 
     footer {
@@ -158,34 +157,6 @@
 
 .about-article h2 span {
     color: var(--accent);
-  background: linear-gradient(
-  to right,
-  #d2a056 0%,
-  #9e7c2f 25%,
-  #e3a74e 50%,
-  #9e7c2f 75%,
-  #d2a056 100%
-);
-    background-size: 200% auto;
-    animation: shine 3s linear infinite;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation:  animaçaozinha 7s linear infinite;
-}
-
-@keyframes animaçaozinha {
-    0% {
-        background-position: 0% 50%;
-    }
-    
-    50% {
-        background-position: 100% 50%;
-    }
-    
-    100% {
-        background-position: 0% 50%;
-    }   
 }
 
 /* TEXTO */
@@ -194,16 +165,14 @@
     line-height: 1.9;
     color: #cfcfcf;
     margin-bottom: 20px;
-    text-align: justify;
-    text-indent: 30px;
+    text-align: center;
 }
 
 /* DESTAQUE FINAL */
 .about-highlight {
-    margin-left: 30px;
     margin-top: 30px;
     font-size: 1.15rem;
-    font-weight: 900;
+    font-weight: 600;
     color: var(--accent);
     text-align: center;
     letter-spacing: 0.5px;
@@ -487,18 +456,29 @@
 
         <div class="col-lg-6">
             <nav class="navbar navbar-expand-lg navbar-light py-3 py-lg-0 justify-content-center">
-               <div class="navbar-wrapper">
-    <div class="navbar-nav custom-nav-box">
-        <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
-        <a href="{{ route('servicos') }}" class="nav-item nav-link">Serviços</a>
-        <a href="{{ route('equipe') }}" class="nav-item nav-link active">Equipe</a>
-    </div>
-</div>
+    <div class="navbar-wrapper">
+        <div class="navbar-nav custom-nav-box">
 
+            <a href="{{ route('home') }}"
+               class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
+               Home
+            </a>
 
-            </nav>
+            <a href="{{ route('servicos') }}"
+               class="nav-item nav-link {{ request()->routeIs('servicos') ? 'active' : '' }}">
+               Serviços
+            </a>
+
+            <a href="{{ route('equipe') }}"
+               class="nav-item nav-link {{ request()->routeIs('equipe') ? 'active' : '' }}">
+               Equipe
+            </a>
+
         </div>
-<section class="about-section">
+    </div>
+</nav>
+        </div>
+
         <div class="col-lg-3 d-none d-lg-block"></div>
     </div>
 </div>
