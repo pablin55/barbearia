@@ -237,7 +237,42 @@
     text-shadow: 0 0 10px var(--accent);
     transform: scale(1.2);
 }
+/* NAV BOX PREMIUM */
+.navbar-wrapper {
+    display: flex;
+    justify-content: center;
+}
 
+.custom-nav-box {
+    background: #111;
+    padding: 12px 25px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    gap: 25px;
+}
+
+/* Links */
+.custom-nav-box .nav-link {
+    color: #ccc;
+    font-weight: 500;
+    transition: 0.3s ease;
+    padding: 8px 14px;
+    border-radius: 20px;
+}
+
+/* Hover */
+.custom-nav-box .nav-link:hover {
+    background-color: rgba(201,162,77,0.15);
+    color: var(--accent);
+}
+
+/* Ativo */
+.custom-nav-box .active {
+    background-color: var(--accent);
+    color: #000 !important;
+}
 
 </style>
 </head>
@@ -253,14 +288,29 @@
     <img src="{{ asset('img/pbar.png') }}" alt="Pablo Barbearia" style="height: 120px;">
         </div>
 
-        <div class="col-lg-6">
+         <div class="col-lg-6">
             <nav class="navbar navbar-expand-lg navbar-light py-3 py-lg-0 justify-content-center">
-            <div class="navbar-nav">
-                    <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
-                    <a href="{{ route('servicos') }}" class="nav-item nav-link">Serviços</a>
-                    <a href="{{ route('equipe') }}" class="nav-item nav-link">Equipe</a>
-                </div>
-            </nav>
+    <div class="navbar-wrapper">
+        <div class="navbar-nav custom-nav-box">
+
+            <a href="{{ route('home') }}"
+               class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
+               Home
+            </a>
+
+            <a href="{{ route('servicos') }}"
+               class="nav-item nav-link {{ request()->routeIs('servicos') ? 'active' : '' }}">
+               Serviços
+            </a>
+
+            <a href="{{ route('equipe') }}"
+               class="nav-item nav-link {{ request()->routeIs('equipe') ? 'active' : '' }}">
+               Equipe
+            </a>
+
+        </div>
+    </div>
+</nav>
         </div>
 
         <div class="col-lg-3 d-none d-lg-block"></div>
