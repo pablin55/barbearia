@@ -517,7 +517,7 @@
             <h2 style="color:#fff;">Sobre <span>Pablo Barbearia</span></h2>
             <div class="about-divider"></div>
 
-            <p>
+            <p >
                 Desde 2018, a <strong class="gold">Pablo Barbearia</strong> é referência em cuidado masculino no Cristo.
                 Unimos técnica, precisão e atendimento personalizado para valorizar a identidade de cada cliente.
             </p>
