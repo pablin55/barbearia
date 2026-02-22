@@ -476,45 +476,7 @@
     </div>
 </div>
 
-<!-- CAROUSEL -->
-<section class="hero-carousel">
-    <div id="header-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
 
-        <div class="carousel-inner">
-
-            <div class="carousel-item active">
-                <img class="img-fluid" src="img/corte02.jpeg" alt="">
-                <div class="carousel-caption d-flex align-items-center justify-content-center">
-                    <div>
-                        <h3 class="text-white">Estilo & Precisão</h3>
-                        <p class="text-light">Corte e barba premium</p>
-                        <a class="btn btn-primary">Agendar Agora</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="carousel-item">
-                <img class="img-fluid" src="img/corte01.jpeg" alt="">
-                <div class="carousel-caption d-flex align-items-center justify-content-center">
-                    <div>
-                        <h3 class="text-white">Barbearia Moderna</h3>
-                        <p class="text-light">Conforto e Cuidado</p>
-                        <a class="btn btn-primary">Agendar Agora</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </a>
-        <a class="carousel-control-next" href="#header-carousel" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </a>
-
-    </div>
-</section>
 <!-- SERVIÇOS COM IMAGEM -->
 <section class="services-section">
     <div class="services-container">
@@ -523,7 +485,7 @@
         <div class="services-grid">
 
             <div class="service-card">
-                <img src="img/corte01.jpeg" alt="Corte Masculino">
+                <img src="img/nml.jpeg" alt="Corte Masculino">
                 <div class="service-info">
                     <h3>corte</h3>
                     <a class="btn btn-primary">Agendar Agora</a>
@@ -531,7 +493,7 @@
             </div>
 
             <div class="service-card">
-                <img src="img/corte02.jpeg" alt="Barba">
+                <img src="img/nv.jpeg" alt="Barba">
                 <div class="service-info">
                     <h3>corte + nevou</h3>
                      <a class="btn btn-primary">Agendar Agora</a>
@@ -539,7 +501,7 @@
             </div>
 
             <div class="service-card">
-                <img src="img/corte01.jpeg" alt="Corte + Barba">
+                <img src="img/cb.jpeg" alt="Corte + Barba">
                 <div class="service-info">
                     <h3>corte + barba</h3>
                      <a class="btn btn-primary">Agendar Agora</a>
@@ -547,14 +509,14 @@
             </div>
 
             <div class="service-card">
-                <img src="img/corte02.jpeg" alt="Hidratação">
+                <img src="img/inf.jpeg" alt="Hidratação">
                 <div class="service-info">
                     <h3>corte infantil</h3>
                      <a class="btn btn-primary">Agendar Agora</a>
                 </div>
             </div>
              <div class="service-card">
-                <img src="img/corte02.jpeg" alt="Hidratação">
+                <img src="img/nrm.jpeg" alt="Hidratação">
                 <div class="service-info">
                     <h3>corte + pigmentação</h3>
                     <a class="btn btn-primary">Agendar Agora</a>
