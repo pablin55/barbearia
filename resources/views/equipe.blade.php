@@ -59,7 +59,9 @@
 
     .btn-login-fixed:hover {
         background-color: #b18d3f;
+        color: #000;
         transform: translateY(-2px);
+        text-decoration: none;
     }
     .top-header {
         background: linear-gradient(180deg, #0b0b0b 0%, #141414 100%);
@@ -167,10 +169,10 @@
     }
 
     .team-social-link:hover {
-        transform: translateY(-5px) scale(1.1);
-        background-color: var(--accent);
-        color: #1a1a1a;
-        box-shadow: 0 10px 25px rgba(201, 162, 77, 0.4);
+        background-color: #b18d3f;
+        color: #000;
+        transform: translateY(-2px);
+        text-decoration: none;
     }
 
     /* FOOTER STYLES */
@@ -248,15 +250,15 @@
 
     <div class="row align-items-center py-3 px-xl-5 m-0">
         <div class="col-lg-3 d-none d-lg-block">
-             <img src="{{ asset('img/pbar.png') }}" alt="Pablo Barbearia" style="height: 120px;">
+    <img src="{{ asset('img/pbar.png') }}" alt="Pablo Barbearia" style="height: 120px;">
         </div>
 
         <div class="col-lg-6">
             <nav class="navbar navbar-expand-lg navbar-light py-3 py-lg-0 justify-content-center">
-               <div class="navbar-nav">
+            <div class="navbar-nav">
                     <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
                     <a href="{{ route('servicos') }}" class="nav-item nav-link">Serviços</a>
-                    <a href="{{ route('equipe') }}" class="nav-item nav-link active">Equipe</a>
+                    <a href="{{ route('equipe') }}" class="nav-item nav-link">Equipe</a>
                 </div>
             </nav>
         </div>
@@ -288,7 +290,7 @@
                         </a>
                     </div>
                     <p class="team-description">
-                     Telefone e instagram para entrar em contato com o barbeiro para tirar dúvidas sobre os serviços oferecidos.
+                    Telefone e instagram para entrar em contato com o barbeiro para tirar dúvidas sobre os serviços oferecidos.
                     </p>
                 </div>
             </div>
@@ -308,7 +310,7 @@
                         </a>
                     </div>
                     <p class="team-description">
-                       Telefone e instagram para entrar em contato com o barbeiro para tirar dúvidas sobre os serviços oferecidos.
+                    Telefone e instagram para entrar em contato com o barbeiro para tirar dúvidas sobre os serviços oferecidos.
                     </p>
                 </div>
             </div>
