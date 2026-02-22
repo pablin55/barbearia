@@ -232,6 +232,170 @@
     border-color: rgba(255, 255, 255, 0.1);
     margin: 30px 0;
 }
+/* PRICING SECTION */
+.pricing-section {
+    padding: 80px 20px;
+    background: linear-gradient(180deg, #141414 0%, #0e0e0e 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.pricing-container {
+    max-width: 900px;
+    width: 100%;
+    background: #111;
+    padding: 60px 50px;
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.pricing-container h2 {
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #fff;
+}
+
+.pricing-container h2 span {
+    color: var(--accent);
+}
+
+.pricing-table {
+    width: 100%;
+}
+
+.pricing-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 1.05rem;
+    color: #ccc;
+    transition: 0.3s ease;
+}
+
+.pricing-row:last-child {
+    border-bottom: none;
+}
+
+.pricing-row:hover {
+    color: var(--accent);
+    transform: translateX(5px);
+}
+/* SERVICES SECTION */
+.services-section {
+    padding: 90px 20px;
+    background: linear-gradient(180deg, #141414 0%, #0e0e0e 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.services-container {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+}
+
+.services-container h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 50px;
+    color: #fff;
+}
+
+.services-container h2 span {
+    color: var(--accent);
+}
+
+/* GRID */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+/* CARD */
+.service-card {
+    background: #111;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.7);
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: 0.4s ease;
+    cursor: pointer;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 55px rgba(201,162,77,0.2);
+}
+
+/* IMAGE */
+.service-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: 0.4s ease;
+}
+
+.service-card:hover img {
+    transform: scale(1.05);
+}
+
+/* INFO */
+.service-info {
+    padding: 25px;
+}
+
+.service-info h3 {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.service-info p {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+/* NAV BOX PREMIUM */
+.navbar-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.custom-nav-box {
+    background: #111;
+    padding: 12px 25px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    gap: 25px;
+}
+
+/* Links */
+.custom-nav-box .nav-link {
+    color: #ccc;
+    font-weight: 500;
+    transition: 0.3s ease;
+    padding: 8px 14px;
+    border-radius: 20px;
+}
+
+/* Hover */
+.custom-nav-box .nav-link:hover {
+    background-color: rgba(201,162,77,0.15);
+    color: var(--accent);
+}
+
+/* Ativo */
+.custom-nav-box .active {
+    background-color: var(--accent);
+    color: #000 !important;
+}
 </style>
 </head>
 
@@ -248,12 +412,13 @@
 
         <div class="col-lg-6">
             <nav class="navbar navbar-expand-lg navbar-light py-3 py-lg-0 justify-content-center">
-               <div class="navbar-nav">
+             <div class="navbar-wrapper">
+    <div class="navbar-nav custom-nav-box">
                     <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
                     <a href="{{ route('servicos') }}" class="nav-item nav-link">Serviços</a>
                     <a href="{{ route('equipe') }}" class="nav-item nav-link active">Equipe</a>
                 </div>
-
+</div>
             </nav>
         </div>
 
@@ -300,6 +465,49 @@
 
     </div>
 </section>
+<!-- SERVIÇOS COM IMAGEM -->
+<section class="services-section">
+    <div class="services-container">
+        <h2>Nossos <span>Serviços</span></h2>
+
+        <div class="services-grid">
+
+            <div class="service-card">
+                <img src="img/corte01.jpeg" alt="Corte Masculino">
+                <div class="service-info">
+                    <h3>Corte Masculino</h3>
+                    <p>R$ 30,00</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="img/corte02.jpeg" alt="Barba">
+                <div class="service-info">
+                    <h3>Barba</h3>
+                    <p>R$ 25,00</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="img/corte01.jpeg" alt="Corte + Barba">
+                <div class="service-info">
+                    <h3>Corte + Barba</h3>
+                    <p>R$ 50,00</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="img/corte02.jpeg" alt="Hidratação">
+                <div class="service-info">
+                    <h3>Hidratação</h3>
+                    <p>R$ 60,00</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 
 <!-- SOBRE NÓS (AGORA CORRETAMENTE ABAIXO DAS IMAGENS) -->
 <section class="about-section">
