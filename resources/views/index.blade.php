@@ -460,7 +460,7 @@
 
             </nav>
         </div>
-
+<section class="about-section">
         <div class="col-lg-3 d-none d-lg-block"></div>
     </div>
 </div>
