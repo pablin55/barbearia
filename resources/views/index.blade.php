@@ -42,7 +42,7 @@
         border-color: #b18d3f;
     }
 
-    .navbar-light .navbar-nav .nav-link {
+    .navbar-light .navbar-nav .nav-link{
         color: #e0e0e0;
     }
 
@@ -86,6 +86,7 @@
         background-color: #b18d3f;
         color: #000;
         transform: translateY(-2px);
+        text-decoration: none;
     }
 
     footer {
@@ -157,6 +158,34 @@
 
 .about-article h2 span {
     color: var(--accent);
+  background: linear-gradient(
+  to right,
+  #d2a056 0%,
+  #9e7c2f 25%,
+  #e3a74e 50%,
+  #9e7c2f 75%,
+  #d2a056 100%
+);
+    background-size: 200% auto;
+    animation: shine 3s linear infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation:  animaçaozinha 7s linear infinite;
+}
+
+@keyframes animaçaozinha {
+    0% {
+        background-position: 0% 50%;
+    }
+    
+    50% {
+        background-position: 100% 50%;
+    }
+    
+    100% {
+        background-position: 0% 50%;
+    }   
 }
 
 /* TEXTO */
@@ -165,14 +194,16 @@
     line-height: 1.9;
     color: #cfcfcf;
     margin-bottom: 20px;
-    text-align: center;
+    text-align: justify;
+    text-indent: 30px;
 }
 
 /* DESTAQUE FINAL */
 .about-highlight {
+    margin-left: 30px;
     margin-top: 30px;
     font-size: 1.15rem;
-    font-weight: 600;
+    font-weight: 900;
     color: var(--accent);
     text-align: center;
     letter-spacing: 0.5px;
@@ -233,6 +264,117 @@
     margin: 30px 0;
 }
 
+/* Melhorias visuais teste SOBRE A BARBEARIA */
+.about-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-divider {
+    width: 80px;
+    height: 3px;
+    background: var(--accent);
+    margin: 15px auto 0;
+    border-radius: 3px;
+}
+
+.gold {
+    color: var(--accent);
+}
+
+.about-article {
+    position: relative;
+}
+
+.about-article p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: #cfcfcf;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.about-destaque-box {
+    background: rgba(201, 162, 77, 0.08);
+    border-left: 4px solid var(--accent);
+    padding: 20px 25px;
+    margin: 30px 0;
+    border-radius: 8px;
+}
+
+.about-highlight {
+    margin-top: 40px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    letter-spacing: 1px;
+}
+/* SECTION DIFERENCIAIS */
+.features-section {
+    padding: 80px 20px;
+    background: linear-gradient(180deg, #141414 0%, #0e0e0e 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.features-container {
+    max-width: 1100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+/* CARDS */
+.feature-card {
+    background: #111;
+    padding: 35px 25px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: 0.3s ease;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+}
+
+/* ÍCONE */
+.feature-icon {
+    font-size: 35px;
+    color: var(--accent);
+    margin-bottom: 15px;
+}
+
+/* TÍTULO */
+.feature-card h4 {
+    color: #fff;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+/* TEXTO */
+.feature-card p {
+    font-size: 0.95rem;
+    color: #aaa;
+    line-height: 1.6;
+}
+
+/* RESPONSIVO */
+@media (max-width: 992px) {
+    .features-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .features-container {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
 </head>
 
@@ -252,7 +394,7 @@
                 <div class="navbar-nav">
                     <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
                     <a href="{{ route('servicos') }}" class="nav-item nav-link">Serviços</a>
-                    <a href="{{ route('equipe') }}" class="nav-item nav-link active">Equipe</a>
+                    <a href="{{ route('equipe') }}" class="nav-item nav-link">Equipe</a>
                 </div>
 
 
@@ -306,36 +448,73 @@
 <!-- SOBRE NÓS (AGORA CORRETAMENTE ABAIXO DAS IMAGENS) -->
 <section class="about-section">
     <article class="about-article">
-        <h2>Sobre <span>Pablo Barbearia</span></h2>
+
+        <div class="about-header">
+            <h2>Sobre <span>Pablo Barbearia</span></h2>
+            <div class="about-divider"></div>
+        </div>
 
         <p>
-            A <strong>Pablo Barbearia</strong> nasceu com o propósito de oferecer mais do que um corte de cabelo.
-            Aqui, cada detalhe é pensado para proporcionar uma experiência única, unindo estilo, conforto
-            e atendimento de alto nível dentro de uma comunidade no bairro do cristo.
+            A <strong class="gold">Pablo Barbearia</strong> é referência em cuidado masculino desde 2018.
+            Mais do que cortes de cabelo, entregamos experiência, precisão técnica
+            e um atendimento que valoriza a identidade de cada cliente.
         </p>
 
         <p>
-    Fundada em <strong>2018</strong>, a Pablo Barbearia nasceu com a missão de elevar o conceito de cuidado masculino,
-    unindo técnica, estilo e atendimento de excelência. Desde o início, o foco sempre foi oferecer muito mais
-    do que um simples corte, mas uma experiência completa para cada cliente.
-    <br><br>
-    À frente da barbearia está <strong>Pablo Apolinário Alves</strong>, CEO e fundador, profissional com
-    anos de experiência no mercado de trabalho e profundo conhecimento na arte da barbearia.
-    Sua trajetória é marcada pela dedicação, constante evolução e compromisso em entregar
-    qualidade, confiança e identidade em cada detalhe.
+            Fundada por <strong class="gold">Pablo Apolinário Alves</strong>, a barbearia nasceu
+            com a missão de elevar o padrão do serviço na região do Cristo,
+            oferecendo estrutura moderna, ambiente sofisticado e profissionais
+            altamente qualificados.
         </p>
-
 
         <p>
-            Trabalhamos com técnicas modernas, produtos de qualidade e profissionais qualificados,
-            sempre respeitando o estilo e a personalidade de cada cliente.
-            Nosso ambiente foi criado para quem valoriza excelência e tradição.
+            Trabalhamos com cortes clássicos, modernos, degradês, barba desenhada
+            e atendimento especializado para crianças — incluindo crianças autistas —
+            sempre com respeito, paciência e atenção personalizada.
         </p>
+
+        <div class="about-destaque-box">
+            <p>
+                Também oferecemos <strong class="gold">curso profissional de barbearia</strong>,
+                formando novos barbeiros com técnica, postura e visão empreendedora.
+            </p>
+        </div>
 
         <p class="about-highlight">
-            Mais do que uma barbearia, somos um espaço de confiança, identidade e atitude.
+            Mais do que uma barbearia, um espaço de confiança, identidade e atitude.
         </p>
+
     </article>
+</section>
+<!-- cards -->
+<section class="features-section">
+    <div class="features-container">
+
+        <div class="feature-card">
+            <i class="fas fa-wifi feature-icon"></i>
+            <h4>Wi-Fi Gratuito</h4>
+            <p>Internet rápida e gratuita para você aproveitar enquanto aguarda seu atendimento.</p>
+        </div>
+
+        <div class="feature-card">
+            <i class="fas fa-child feature-icon"></i>
+            <h4>Atendimento Infantil</h4>
+            <p>Ambiente preparado para atender crianças com paciência, cuidado e atenção especial.</p>
+        </div>
+
+        <div class="feature-card">
+            <i class="fas fa-puzzle-piece feature-icon"></i>
+            <h4>Crianças com Autismo</h4>
+            <p>Atendimento humanizado e adaptado para crianças autistas, com respeito e sensibilidade.</p>
+        </div>
+
+        <div class="feature-card">
+            <i class="fas fa-graduation-cap feature-icon"></i>
+            <h4>Curso Profissional</h4>
+            <p>Formação completa para novos barbeiros com técnica, prática e visão empreendedora.</p>
+        </div>
+
+    </div>
 </section>
 
 <!-- RODAPÉ PREMIUM -->
