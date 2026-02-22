@@ -232,6 +232,7 @@
     border-color: rgba(255, 255, 255, 0.1);
     margin: 30px 0;
 }
+
 </style>
 </head>
 
@@ -257,7 +258,7 @@
 
             </nav>
         </div>
-
+<section class="about-section">
         <div class="col-lg-3 d-none d-lg-block"></div>
     </div>
 </div>
