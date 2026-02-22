@@ -292,7 +292,7 @@
     <div class="navbar-nav custom-nav-box">
         <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
         <a href="{{ route('servicos') }}" class="nav-item nav-link">Serviços</a>
-        <a href="{{ route('equipe') }}" class="nav-item nav-link active">Equipe</a>
+        <a href="{{ route('equipe') }}" class="nav-item nav-link active">Equipe</a>.
     </div>
 </div>
 
