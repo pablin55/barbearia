@@ -131,6 +131,7 @@
         border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .about-section {
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     padding: 80px 20px;
@@ -439,6 +440,23 @@
     .about-container {
         grid-template-columns: 1fr;
     }
+    
+    /* Classes para animação de Scroll (Aparecer quando descer) */
+    .hidden {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(100px);
+        /* Começa mais de baixo para efeito dramático */
+        transition: all 1.1s ease-out;
+        /* Demora 1s para aparecer */
+    }
+
+    .show {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+        /* Vai para a posição original */
+    }
 
 </style>
 </head>
@@ -447,10 +465,10 @@
 
 <!-- TOPO -->
 <div class="top-header position-relative">
-    <a href="/login" class="btn-login-fixed">Login</a>
+    <a href="/login" class="btn-login-fixed ">Login</a>
 
     <div class="row align-items-center py-3 px-xl-5 m-0">
-        <div class="col-lg-3 d-none d-lg-block">
+        <div class="col-lg-3 d-none d-lg-block ">
             <img src="{{ asset('img/pbar.png') }}" alt="Pablo Barbearia" style="height: 120px;">
         </div>
 
@@ -527,20 +545,20 @@
 <section class="about-section">
     <div class="about-container">
 
-        <div class="about-image">
+        <div class="about-image hidden">
             <img src="img/barbearia.jpeg" alt="Pablo Barbearia">
         </div>
 
-        <article class="about-content">
+        <article class="about-content hidden">
             <h2 style="color:#fff;">Sobre <span>Pablo Barbearia</span></h2>
             <div class="about-divider"></div>
 
-            <p >
+            <p style=" text-indent: 20px; text-align: justify;">
                 Desde 2018, a <strong class="gold">Pablo Barbearia</strong> é referência em cuidado masculino no Cristo.
                 Unimos técnica, precisão e atendimento personalizado para valorizar a identidade de cada cliente.
             </p>
 
-            <p>
+            <p style=" text-indent: 20px; text-align: justify;">
                 Fundada por <strong class="gold">Pablo Apolinário Alves</strong>,
                 a barbearia nasceu com a missão de elevar o padrão do serviço na região,
                 oferecendo estrutura moderna, ambiente sofisticado e profissionais qualificados.
@@ -562,12 +580,12 @@
 
 <!-- DIFERENCIAIS -->
 <div class="about-header" style="text-align:center; margin-bottom:50px; color:#fff;">
-    <h2 style="color:#fff;">Nossos <span class="gold">Diferenciais</span></h2>
+    <h2  class="hidden" style="color:#fff;">Nossos <span class="gold hidden" >Diferenciais</span></h2>
     <div class="about-divider"></div>
 </div>
 
 <!-- cards -->
-<section class="features-section">
+<section class="features-section hidden">
     <div class="features-container">
     <div class="feature-card">
     <i class="fas fa-snowflake feature-icon"></i>
@@ -668,6 +686,19 @@
         interval: 3000,
         ride: 'carousel'
     });
+
+    const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
 </script>
 
 </body>
