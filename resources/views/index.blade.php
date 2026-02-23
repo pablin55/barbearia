@@ -233,43 +233,65 @@
     border-color: rgba(255, 255, 255, 0.1);
     margin: 30px 0;
 }
-/* NAV BOX PREMIUM */
+/* NAVBAR PREMIUM GLASS */
 .navbar-wrapper {
     display: flex;
     justify-content: center;
 }
 
+/* Caixa principal */
 .custom-nav-box {
-    background: #111;
-    padding: 12px 25px;
-    border-radius: 50px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 10px 30px;
+    border-radius: 60px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+    border: 1px solid rgba(201,162,77,0.2);
     display: flex;
-    gap: 25px;
+    gap: 15px;
+    transition: 0.3s ease;
 }
 
 /* Links */
 .custom-nav-box .nav-link {
+    position: relative;
     color: #ccc;
     font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+/* Linha dourada animada */
+.custom-nav-box .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    width: 0%;
+    height: 2px;
+    background: var(--accent);
     transition: 0.3s ease;
-    padding: 8px 14px;
-    border-radius: 20px;
+    transform: translateX(-50%);
 }
 
 /* Hover */
 .custom-nav-box .nav-link:hover {
-    background-color: rgba(201,162,77,0.15);
     color: var(--accent);
 }
 
-/* Ativo */
-.custom-nav-box .active {
-    background-color: var(--accent);
-    color: #000 !important;
+.custom-nav-box .nav-link:hover::after {
+    width: 60%;
 }
 
+/* Link ativo */
+.custom-nav-box .active {
+    background: linear-gradient(135deg, var(--accent), #b18d3f);
+    color: #000 !important;
+    font-weight: 600;
+    box-shadow: 0 5px 20px rgba(201,162,77,0.4);
+}
 /* Melhorias visuais teste SOBRE A BARBEARIA */
 .about-header {
     text-align: center;
