@@ -721,18 +721,14 @@
             <h2 style="color:#fff;">Sobre <span>Pablo Barbearia</span></h2>
             <div class="about-divider"></div>
 
-            <p style=" text-indent: 20px; text-align: justify;">
-        <article class="about-content">
-            <h2 style="color:#fff;" data-i18n="about-title">Sobre <span style="color: var(--accent);">Pablo Barbearia</span></h2>
-            <div class="about-divider"></div>
-
-            <p data-i18n="about-p1">
+        
+            <p style=" text-indent: 20px; text-align: justify;" data-i18n="about-p1">
                 Desde 2018, a <strong class="gold">Pablo Barbearia</strong> é referência em cuidado masculino no Cristo.
                 Unimos técnica, precisão e atendimento personalizado para valorizar a identidade de cada cliente.
             </p>
 
-            <p style=" text-indent: 20px; text-align: justify;">
-            <p data-i18n="about-p2">
+    
+            <p style=" text-indent: 20px; text-align: justify;" data-i18n="about-p2">
                 Fundada por <strong class="gold">Pablo Apolinário Alves</strong>,
                 a barbearia nasceu com a missão de elevar o padrão do serviço na região,
                 oferecendo estrutura moderna, ambiente sofisticado e profissionais qualificados.
@@ -754,8 +750,7 @@
 
 <!-- DIFERENCIAIS -->
 <div class="about-header" style="text-align:center; margin-bottom:50px; color:#fff;">
-    <h2  class="hidden" style="color:#fff;">Nossos <span class="gold hidden" >Diferenciais</span></h2>
-    <h2 style="color:#fff;"><span class="gold" data-i18n="comodidades-title">Nossas Comodidades</span></h2>
+    <h2 class="hidden"  style="color: #fff;" data-i18n="comodidades-title">Nossas<span class="gold" data-i18n="comodidades-title"> Comodidades</span></h2>
     <div class="about-divider"></div>
 </div>
 
