@@ -190,6 +190,7 @@
         border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .about-section {
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     padding: 80px 20px;
@@ -291,43 +292,65 @@
     border-color: rgba(255, 255, 255, 0.1);
     margin: 30px 0;
 }
-/* NAV BOX PREMIUM */
+/* NAVBAR PREMIUM GLASS */
 .navbar-wrapper {
     display: flex;
     justify-content: center;
 }
 
+/* Caixa principal */
 .custom-nav-box {
-    background: #111;
-    padding: 12px 25px;
-    border-radius: 50px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 10px 30px;
+    border-radius: 60px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+    border: 1px solid rgba(201,162,77,0.2);
     display: flex;
-    gap: 25px;
+    gap: 15px;
+    transition: 0.3s ease;
 }
 
 /* Links */
 .custom-nav-box .nav-link {
+    position: relative;
     color: #ccc;
     font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+/* Linha dourada animada */
+.custom-nav-box .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    width: 0%;
+    height: 2px;
+    background: var(--accent);
     transition: 0.3s ease;
-    padding: 8px 14px;
-    border-radius: 20px;
+    transform: translateX(-50%);
 }
 
 /* Hover */
 .custom-nav-box .nav-link:hover {
-    background-color: rgba(201,162,77,0.15);
     color: var(--accent);
 }
 
-/* Ativo */
-.custom-nav-box .active {
-    background-color: var(--accent);
-    color: #000 !important;
+.custom-nav-box .nav-link:hover::after {
+    width: 60%;
 }
 
+/* Link ativo */
+.custom-nav-box .active {
+    background: linear-gradient(135deg, var(--accent), #b18d3f);
+    color: #000 !important;
+    font-weight: 600;
+    box-shadow: 0 5px 20px rgba(201,162,77,0.4);
+}
 /* Melhorias visuais teste SOBRE A BARBEARIA */
 .about-header {
     text-align: center;
@@ -498,6 +521,23 @@
     .about-container {
         grid-template-columns: 1fr;
     }
+    
+    /* Classes para animação de Scroll (Aparecer quando descer) */
+    .hidden {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(100px);
+        /* Começa mais de baixo para efeito dramático */
+        transition: all 1.1s ease-out;
+        /* Demora 1s para aparecer */
+    }
+
+    .show {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+        /* Vai para a posição original */
+    }
 
     .language-dropdown {
     position: absolute;
@@ -581,6 +621,7 @@
 
 <!-- TOPO -->
 <div class="top-header position-relative">
+    <a href="/login" class="btn-login-fixed ">Login</a>
     <div class="language-dropdown">
         <a href="#" class="selected-lang" onclick="toggleLangMenu(); return false;"><i class="fas fa-globe"></i> PT</a>
         <div class="lang-menu" id="langMenu">
@@ -592,7 +633,7 @@
     <a href="/login" class="btn-login-fixed">Login</a>
 
     <div class="row align-items-center py-3 px-xl-5 m-0">
-        <div class="col-lg-3 d-none d-lg-block">
+        <div class="col-lg-3 d-none d-lg-block ">
             <img src="{{ asset('img/pbar.png') }}" alt="Pablo Barbearia" style="height: 120px;">
         </div>
 
@@ -672,10 +713,15 @@
 <section class="about-section">
     <div class="about-container">
 
-        <div class="about-image">
+        <div class="about-image hidden">
             <img src="img/barbearia.jpeg" alt="Pablo Barbearia">
         </div>
 
+        <article class="about-content hidden">
+            <h2 style="color:#fff;">Sobre <span>Pablo Barbearia</span></h2>
+            <div class="about-divider"></div>
+
+            <p style=" text-indent: 20px; text-align: justify;">
         <article class="about-content">
             <h2 style="color:#fff;" data-i18n="about-title">Sobre <span style="color: var(--accent);">Pablo Barbearia</span></h2>
             <div class="about-divider"></div>
@@ -685,6 +731,7 @@
                 Unimos técnica, precisão e atendimento personalizado para valorizar a identidade de cada cliente.
             </p>
 
+            <p style=" text-indent: 20px; text-align: justify;">
             <p data-i18n="about-p2">
                 Fundada por <strong class="gold">Pablo Apolinário Alves</strong>,
                 a barbearia nasceu com a missão de elevar o padrão do serviço na região,
@@ -707,12 +754,13 @@
 
 <!-- DIFERENCIAIS -->
 <div class="about-header" style="text-align:center; margin-bottom:50px; color:#fff;">
+    <h2  class="hidden" style="color:#fff;">Nossos <span class="gold hidden" >Diferenciais</span></h2>
     <h2 style="color:#fff;"><span class="gold" data-i18n="comodidades-title">Nossas Comodidades</span></h2>
     <div class="about-divider"></div>
 </div>
 
 <!-- cards -->
-<section class="features-section">
+<section class="features-section hidden">
     <div class="features-container">
     <div class="feature-card">
     <i class="fas fa-snowflake feature-icon"></i>
@@ -813,6 +861,19 @@
         interval: 3000,
         ride: 'carousel'
     });
+
+    const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
 </script>
 
 <script>
