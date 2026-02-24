@@ -86,6 +86,7 @@
         background-color: #b18d3f;
         color: #000;
         transform: translateY(-2px);
+        text-decoration: none;
     }
 
     .language-dropdown {
@@ -112,6 +113,8 @@
     .selected-lang:hover {
         background-color: #b18d3f;
         transform: translateY(-2px);
+        text-decoration: none;
+        color: #000;
     }
 
     .lang-menu {
@@ -521,23 +524,6 @@
     .about-container {
         grid-template-columns: 1fr;
     }
-    
-    /* Classes para animação de Scroll (Aparecer quando descer) */
-    .hidden {
-        opacity: 0;
-        filter: blur(5px);
-        transform: translateY(100px);
-        /* Começa mais de baixo para efeito dramático */
-        transition: all 1.1s ease-out;
-        /* Demora 1s para aparecer */
-    }
-
-    .show {
-        opacity: 1;
-        filter: blur(0);
-        transform: translateY(0);
-        /* Vai para a posição original */
-    }
 
     .language-dropdown {
     position: absolute;
@@ -614,6 +600,22 @@
     background-color: #b18d3f;
     transform: translateY(-2px);
 }
+/* Classes para animação de Scroll (Aparecer quando descer) */
+    .hidden {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(100px);
+        /* Começa mais de baixo para efeito dramático */
+        transition: all 1.1s ease-out;
+        /* Demora 1s para aparecer */
+    }
+
+    .show {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+        /* Vai para a posição original */
+    }
 </style>
 </head>
 
@@ -988,19 +990,15 @@ function toggleLangMenu() {
 function setLanguage(lang) {
     currentLanguage = lang;
     
-    // Atualizar botão
     document.querySelector(".selected-lang").innerHTML =
         lang === "pt" ? "<i class='fas fa-globe'></i> PT" :
         lang === "en" ? "<i class='fas fa-globe'></i> EN" :
         "<i class='fas fa-globe'></i> ES";
 
-    // Fechar menu
     document.getElementById("langMenu").style.display = "none";
 
-    // Traduzir página
     const trans = translations[lang];
     
-    // Atualizar navegação
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.dataset.i18n;
         if (trans[key]) {
@@ -1009,7 +1007,6 @@ function setLanguage(lang) {
     });
 }
 
-// Fechar ao clicar fora
 document.addEventListener("click", function(e) {
     const dropdown = document.querySelector(".language-dropdown");
     if (!dropdown.contains(e.target)) {

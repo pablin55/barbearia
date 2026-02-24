@@ -110,6 +110,8 @@
     .selected-lang:hover {
         background-color: #b18d3f;
         transform: translateY(-2px);
+        text-decoration: none;
+        color: #000;
     }
 
     .lang-menu {
@@ -388,6 +390,22 @@
         #0e0e0e 100%
     );
 }
+/* Classes para animação de Scroll (Aparecer quando descer) */
+    .hidden {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(100px);
+        /* Começa mais de baixo para efeito dramático */
+        transition: all 1.1s ease-out;
+        /* Demora 1s para aparecer */
+    }
+
+    .show {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+        /* Vai para a posição original */
+    }
 </style>
 </head>
 
@@ -446,9 +464,9 @@
 <section class="team-section">
     <div class="container">
 
-        <h1 class="team-title" data-i18n="team-title">NOSSA <span style="color: var(--accent);">EQUIPE</span></h1>
+        <h1 class="team-title hidden" data-i18n="team-title">NOSSA <span style="color: var(--accent);">EQUIPE</span></h1>
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center hidden">
 
             <div class="col-md-4">
                 <div class="team-card">
@@ -627,6 +645,19 @@
 function avaliar() {
     window.open("https://search.google.com/local/writereview?placeid=ChIJ5xhIrKvprAcRDFs-8o47x00", "_blank");
 }
+
+const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
 </script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
