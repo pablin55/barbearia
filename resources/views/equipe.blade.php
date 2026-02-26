@@ -391,21 +391,37 @@
     );
 }
 /* Classes para animação de Scroll (Aparecer quando descer) */
-    .hidden {
+.hidden-left{
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateX(-100px);
+        transition: all 1.1s ease-out;
+}
+.hidden-right{
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateX(100px);
+        transition: all 1.1s ease-out;
+}
+.hidden-down{
         opacity: 0;
         filter: blur(5px);
         transform: translateY(100px);
-        /* Começa mais de baixo para efeito dramático */
         transition: all 1.1s ease-out;
-        /* Demora 1s para aparecer */
-    }
+}
+.hidden-top{
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(-100px);
+        transition: all 1.1s ease-out;
 
-    .show {
+}
+.show {
         opacity: 1;
         filter: blur(0);
         transform: translateY(0);
         /* Vai para a posição original */
-    }
+}
 </style>
 </head>
 
@@ -469,7 +485,7 @@
         <div class="row justify-content-center hidden">
 
             <div class="col-md-4">
-                <div class="team-card">
+                <div class="team-card hidden-left">
                     <div class="team-image">
                         <img src="img/juan1.jpeg" alt="Barbeiro 1">
                     </div>
@@ -489,7 +505,7 @@
             </div>
 
         <div class="col-md-4">
-                <div class="team-card">
+                <div class="team-card hidden-top">
                     <div class="team-image">
                         <img src="img/pablo.jpeg" alt="Barbeiro 1">
                     </div>
@@ -509,7 +525,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class="team-card">
+                <div class="team-card hidden-right">
                     <div class="team-image">
                         <img src="img/wss.jpeg" alt="Barbeiro 1">
                     </div>
@@ -529,7 +545,7 @@
             </div>
 
              <div class="col-md-4">
-                <div class="team-card">
+                <div class="team-card hidden-down">
                     <div class="team-image">
                         <img src="img/vnz.jpeg" alt="Barbeiro 1">
                     </div>
@@ -650,13 +666,11 @@ const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('show');
-                } else {
-                    entry.target.classList.remove('show');
                 }
             });
         });
 
-        const hiddenElements = document.querySelectorAll('.hidden');
+        const hiddenElements = document.querySelectorAll('.hidden-down, .hidden-right, .hidden-left, .hidden-top');
         hiddenElements.forEach((el) => observer.observe(el));
 </script>
 
