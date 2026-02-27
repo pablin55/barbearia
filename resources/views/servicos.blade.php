@@ -135,6 +135,8 @@
     .selected-lang:hover {
         background-color: #b18d3f;
         transform: translateY(-2px);
+        text-decoration: none;
+        color: #000;
     }
 
     .lang-menu {
@@ -514,6 +516,21 @@
 }
 
 /* Classes para animação de Scroll (Aparecer quando descer) */
+    .hidden {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(100px);
+        /* Começa mais de baixo para efeito dramático */
+        transition: all 1.1s ease-out;
+        /* Demora 1s para aparecer */
+    }
+
+    .show {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+        /* Vai para a posição original */
+    }
 .hidden {
     opacity: 0;
     filter: blur(5px);
@@ -840,6 +857,17 @@
     });
 
     const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('show');

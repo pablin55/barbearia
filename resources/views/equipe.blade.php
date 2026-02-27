@@ -110,6 +110,8 @@
     .selected-lang:hover {
         background-color: #b18d3f;
         transform: translateY(-2px);
+        text-decoration: none;
+        color: #000;
     }
 
     .lang-menu {
@@ -388,6 +390,37 @@
         #0e0e0e 100%
     );
 }
+/* Classes para animação de Scroll (Aparecer quando descer) */
+.hidden-left{
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateX(-100px);
+        transition: all 1.1s ease-out;
+}
+.hidden-right{
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateX(100px);
+        transition: all 1.1s ease-out;
+}
+.hidden-down{
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(100px);
+        transition: all 1.1s ease-out;
+}
+.hidden-top{
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(-100px);
+        transition: all 1.1s ease-out;
+
+}
+.show {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+        /* Vai para a posição original */
 
 /* Classes para animação de Scroll (Aparecer quando descer) */
 .hidden {
@@ -464,11 +497,12 @@
 <section class="team-section hidden">
     <div class="container">
 
-        <h1 class="team-title" data-i18n="team-title">NOSSA <span style="color: var(--accent);">EQUIPE</span></h1>
+        <h1 class="team-title hidden" data-i18n="team-title">NOSSA <span style="color: var(--accent);">EQUIPE</span></h1>
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center hidden">
 
             <div class="col-md-4">
+                <div class="team-card hidden-left">
                 <div class="team-card hidden">
                     <div class="team-image">
                         <img src="img/juan1.jpeg" alt="Barbeiro 1">
@@ -489,6 +523,7 @@
             </div>
 
         <div class="col-md-4">
+                <div class="team-card hidden-top">
                 <div class="team-card hidden" style="border: 2px solid var(--accent); box-shadow: 0 0 20px rgba(201, 162, 77, 0.3); position: relative;">
                     <div style="position: absolute; top: -15px; right: 20px; background: linear-gradient(135deg, var(--accent), #b18d3f); color: #000; padding: 8px 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(201, 162, 77, 0.4);">
                         CEO
@@ -513,6 +548,7 @@
             </div>
 
             <div class="col-md-4">
+                <div class="team-card hidden-right">
                 <div class="team-card hidden">
                     <div class="team-image">
                         <img src="img/wss.jpeg" alt="Barbeiro 1">
@@ -533,6 +569,7 @@
             </div>
 
              <div class="col-md-4">
+                <div class="team-card hidden-down">
                 <div class="team-card hidden">
                     <div class="team-image">
                         <img src="img/vnz.jpeg" alt="Barbeiro 1">
@@ -648,6 +685,17 @@
 function avaliar() {
     window.open("https://search.google.com/local/writereview?placeid=ChIJ5xhIrKvprAcRDFs-8o47x00", "_blank");
 }
+
+const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden-down, .hidden-right, .hidden-left, .hidden-top');
+        hiddenElements.forEach((el) => observer.observe(el));
 </script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
