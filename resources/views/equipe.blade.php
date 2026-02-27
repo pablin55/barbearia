@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -388,6 +388,23 @@
         #0e0e0e 100%
     );
 }
+
+/* Classes para animação de Scroll (Aparecer quando descer) */
+.hidden {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(100px);
+    /* ComeÃ§a mais de baixo para efeito dramÃ¡tico */
+    transition: all 1.1s ease-out;
+    /* Demora 1s para aparecer */
+}
+
+.show {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+    /* Vai para a posiÃ§Ã£o original */
+}
 </style>
 </head>
 
@@ -398,7 +415,7 @@
     <div class="language-dropdown">
         <a href="#" class="selected-lang" onclick="toggleLangMenu(); return false;"><i class="fas fa-globe"></i> PT</a>
         <div class="lang-menu" id="langMenu">
-            <div onclick="setLanguage('pt')"><img src="https://flagcdn.com/w20/br.png" alt="PT"> Português</div>
+            <div onclick="setLanguage('pt')"><img src="https://flagcdn.com/w20/br.png" alt="PT"> PortuguÃªs</div>
             <div onclick="setLanguage('en')"><img src="https://flagcdn.com/w20/us.png" alt="EN"> English</div>
             <div onclick="setLanguage('es')"><img src="https://flagcdn.com/w20/es.png" alt="ES"> Español</div>
         </div>
@@ -443,7 +460,8 @@
 </div>
 
 <!-- EQUIPE -->
-<section class="team-section">
+<!-- EQUIPE -->
+<section class="team-section hidden">
     <div class="container">
 
         <h1 class="team-title" data-i18n="team-title">NOSSA <span style="color: var(--accent);">EQUIPE</span></h1>
@@ -451,7 +469,7 @@
         <div class="row justify-content-center">
 
             <div class="col-md-4">
-                <div class="team-card">
+                <div class="team-card hidden">
                     <div class="team-image">
                         <img src="img/juan1.jpeg" alt="Barbeiro 1">
                     </div>
@@ -465,17 +483,21 @@
                         </a>
                     </div>
                     <p class="team-description">
-                    Telefone e instagram para entrar em contato com o barbeiro para tirar dúvidas sobre os serviços oferecidos.
+                    Telefone e Instagram para entrar em contato com o barbeiro e tirar dúvidas sobre os serviços oferecidos.
                     </p>
                 </div>
             </div>
 
         <div class="col-md-4">
-                <div class="team-card">
+                <div class="team-card hidden" style="border: 2px solid var(--accent); box-shadow: 0 0 20px rgba(201, 162, 77, 0.3); position: relative;">
+                    <div style="position: absolute; top: -15px; right: 20px; background: linear-gradient(135deg, var(--accent), #b18d3f); color: #000; padding: 8px 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(201, 162, 77, 0.4);">
+                        CEO
+                    </div>
                     <div class="team-image">
-                        <img src="img/pablo.jpeg" alt="Barbeiro 1">
+                        <img src="img/pablo.jpeg" alt="CEO - Pablo Apolinario Alves">
                     </div>
                     <h4>Pablo Apolinario</h4>
+                    <div class="team-role" style="font-weight: 700; font-size: 1.1rem;">Fundador & CEO</div>
                     <div class="team-social">
                         <a class="team-social-link" href="https://wa.me/558396232639" title="WhatsApp">
                             <i class="fab fa-whatsapp"></i>
@@ -485,13 +507,13 @@
                         </a>
                     </div>
                     <p class="team-description">
-                    Telefone e instagram para entrar em contato com o barbeiro para tirar dúvidas sobre os serviços oferecidos.
+                    Fundador da Pablo Barbearia. Referência em cuidado masculino com mais de 5 anos de experiência. Responsável pela estratégia, qualidade dos serviços e bem-estar de toda a equipe.
                     </p>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="team-card">
+                <div class="team-card hidden">
                     <div class="team-image">
                         <img src="img/wss.jpeg" alt="Barbeiro 1">
                     </div>
@@ -505,13 +527,13 @@
                         </a>
                     </div>
                     <p class="team-description">
-                       Telefone e instagram para entrar em contato com o barbeiro para tirar dúvidas sobre os serviços oferecidos.
+                       Telefone e Instagram para entrar em contato com o barbeiro e tirar dúvidas sobre os serviços oferecidos.
                     </p>
                 </div>
             </div>
 
              <div class="col-md-4">
-                <div class="team-card">
+                <div class="team-card hidden">
                     <div class="team-image">
                         <img src="img/vnz.jpeg" alt="Barbeiro 1">
                     </div>
@@ -525,14 +547,13 @@
                         </a>
                     </div>
                     <p class="team-description">
-                       Telefone e instagram para entrar em contato com o barbeiro para tirar dúvidas sobre os serviços oferecidos.
+                       Telefone e Instagram para entrar em contato com o barbeiro e tirar dúvidas sobre os serviços oferecidos.
                     </p>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
 <section style="padding: 80px 20px; text-align: center; background-color: #111; border-top: 1px solid rgba(255,255,255,0.05);">
     
     <h2 style="color: #fff; font-weight: 700; margin-bottom: 10px;" data-i18n="team-feedback">
@@ -581,11 +602,11 @@
                 <h5 class="footer-section-title" data-i18n="footer-contato">Contato</h5>
 
                 <p class="footer-contact-item">
-                    📱 (83)9 9623-2639
+                    📞 (83) 9 9623-2639
                 </p>
 
                 <p class="footer-contact-item">
-                    ✉ alvespablo600@gmail.com
+                    ✉️ alvespablo600@gmail.com
                 </p>
 
                 <p class="footer-contact-item" data-i18n="footer-horario">
@@ -631,6 +652,21 @@ function avaliar() {
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+            } else {
+                entry.target.classList.remove('show');
+            }
+        });
+    });
+
+    const hiddenElements = document.querySelectorAll('.hidden');
+    hiddenElements.forEach((el) => observer.observe(el));
+</script>
 
 <script>
 const translations = {
