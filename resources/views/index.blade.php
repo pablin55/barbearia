@@ -734,7 +734,7 @@
         </div>
 
         <article class="about-content ">
-            <h2 class="hidden-down" style="color:#fff;">Sobre <span style class="hidden-right">Pablo Barbearia</span></h2>
+            <h2 class="hidden-left" style="color:#fff;">Sobre</h2><h2 class="hidden-right" style="color: #d59c20;">Pablo Barbearia</h2>
             <div class="about-divider"></div>
 
         
