@@ -42,6 +42,17 @@
         border-color: #b18d3f;
     }
 
+    .btn-primary:focus, 
+    .btn-primary.focus,
+    .btn-primary:active,
+    .btn-primary:not(:disabled):not(.disabled):active,
+    .btn-primary:not(:disabled):not(.disabled).active {
+        background-color: var(--accent) !important;
+        border-color: var(--accent) !important;
+        color: #000 !important;
+        box-shadow: none !important;
+    }
+
     .navbar-light .navbar-nav .nav-link {
         color: #e0e0e0;
     }
@@ -697,7 +708,7 @@
                     <div>
                         <h3 class="text-white" data-i18n="carousel-1-title">Estilo & Precisão</h3>
                         <p class="text-light" data-i18n="carousel-1-desc">Corte e barba premium</p>
-                        <a class="btn btn-primary" data-i18n="carousel-btn">Agendar Agora</a>
+                       <a href="{{ route('servicos') }}" class="btn btn-primary" data-i18n="carousel-btn">ver mais</a>
                     </div>
                 </div>
             </div>
@@ -708,7 +719,7 @@
                     <div>
                         <h3 class="text-white" data-i18n="carousel-2-title">Barbearia Moderna</h3>
                         <p class="text-light" data-i18n="carousel-2-desc">Conforto e Cuidado</p>
-                        <a class="btn btn-primary" data-i18n="carousel-btn">Agendar Agora</a>
+                        <a href="{{ route('servicos') }}" class="btn btn-primary" data-i18n="carousel-btn">ver mais</a>
                     </div>
                 </div>
             </div>
