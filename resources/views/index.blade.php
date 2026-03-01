@@ -633,7 +633,7 @@
 .hidden-top{
         opacity: 0;
         filter: blur(5px);
-        transform: translateY(-100px);
+        transform: translateY(100px);
 }
 .show {
         opacity: 1;
@@ -745,7 +745,7 @@
         </div>
 
         <article class="about-content ">
-            <h2 class="hidden-left" style="color:#fff;">Sobre</h2><h2 class="hidden-right" style="color: #d59c20;">Pablo Barbearia</h2>
+            <h2 class="hidden-right " style="color:#fff;  transition: all 1.1s ease-out">Sobre</h2><h2 class="hidden-right" style="color: #d59c20;  transition: all 1.3s ease-out">Pablo Barbearia</h2>
             <div class="about-divider"></div>
 
         

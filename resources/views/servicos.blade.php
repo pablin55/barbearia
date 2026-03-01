@@ -514,26 +514,9 @@
         #0e0e0e 100%
     );
 }
-
-/* Classes para animação de Scroll (Aparecer quando descer) */
-    .hidden {
-        opacity: 0;
-        filter: blur(5px);
-        transform: translateY(100px);
-        /* Começa mais de baixo para efeito dramático */
-        transition: all 1.1s ease-out;
-        /* Demora 1s para aparecer */
-    }
-
-    .show {
-        opacity: 1;
-        filter: blur(0);
-        transform: translateY(0);
-        /* Vai para a posição original */
-    }
 .hidden {
     opacity: 0;
-    filter: blur(5px);
+    filter: blur(0);
     transform: translateY(100px);
     /* Começa mais de baixo para efeito dramático */
     transition: all 1.1s ease-out;
@@ -611,7 +594,7 @@
 
         <div class="services-grid">
 
-            <div class="service-card">
+            <div class="service-card hidden">
                 <img src="img/simp.jpeg" alt="Corte Simples">
                 <div class="service-info">
                     <h3>Corte Simples / Só máquina</h3>
@@ -620,7 +603,7 @@
                 </div>
             </div>
 
-            <div class="service-card">
+            <div class="service-card hidden">
                 <img src="img/nv.jpeg" alt="Corte Social">
                 <div class="service-info">
                     <h3>Corte Social / Degradê / Surfista</h3>
@@ -629,7 +612,7 @@
                 </div>
             </div>
 
-            <div class="service-card">
+            <div class="service-card hidden">
                 <img src="img/tes.jpeg" alt="Corte à Tesoura">
                 <div class="service-info">
                     <h3>Corte à Tesoura</h3>
@@ -638,7 +621,7 @@
                 </div>
             </div>
 
-            <div class="service-card">
+            <div class="service-card hidden">
                 <img src="img/cb.jpeg" alt="Corte com Barba">
                 <div class="service-info">
                     <h3>Corte com Barba</h3>
@@ -647,7 +630,7 @@
                 </div>
             </div>
 
-            <div class="service-card">
+            <div class="service-card hidden">
                 <img src="img/nv.jpeg" alt="Corte com Luzes">
                 <div class="service-info">
                     <h3>Corte + Luzes / Platinado</h3>
@@ -656,7 +639,7 @@
                 </div>
             </div>
 
-            <div class="service-card">
+            <div class="service-card hidden">
                 <img src="img/nrm.jpeg" alt="Corte com Pigmentação">
                 <div class="service-info">
                     <h3>Corte com Pigmentação</h3>
@@ -665,7 +648,7 @@
                 </div>
             </div>
 
-            <div class="service-card">
+            <div class="service-card hidden">
                 <img src="img/barb.jpeg" alt="Barba">
                 <div class="service-info">
                     <h3>Barba</h3>
@@ -674,7 +657,7 @@
                 </div>
             </div>
 
-            <div class="service-card">
+            <div class="service-card hidden">
                 <img src="img/bp.png" alt="Barba com Pigmentação">
                 <div class="service-info">
                     <h3>Barba com Pigmentação</h3>
@@ -683,7 +666,7 @@
                 </div>
             </div>
 
-            <div class="service-card">
+            <div class="service-card hidden">
                 <img src="img/bb.jpeg" alt="Corte com Hidratação">
                 <div class="service-info">
                     <h3>Corte + Hidratação</h3>
@@ -692,7 +675,7 @@
                 </div>
             </div>
 
-            <div class="service-card">
+            <div class="service-card hidden">
                 <img src="img/sobraa.png" alt="Sobrancelha">
                 <div class="service-info">
                     <h3>Sobrancelha</h3>
@@ -701,7 +684,7 @@
                 </div>
             </div>
 
-            <div class="service-card">
+            <div class="service-card hidden">
                 <img src="img/pint.jpeg" alt="Colorimetria">
                 <div class="service-info">
                     <h3>Colorimetria + Corte</h3>
@@ -713,7 +696,7 @@
                 </div>
             </div>
 
-            <div class="service-card">
+            <div class="service-card hidden">
                 <img src="img/inf.jpeg" alt="Corte Infantil">
                 <div class="service-info">
                     <h3>Corte Infantil</h3>
@@ -870,25 +853,13 @@
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('show');
-                } else {
-                    entry.target.classList.remove('show');
-                }
+                } 
             });
         });
 
         const hiddenElements = document.querySelectorAll('.hidden');
         hiddenElements.forEach((el) => observer.observe(el));
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show');
-            } else {
-                entry.target.classList.remove('show');
-            }
-        });
-    });
 
-    const hiddenElements = document.querySelectorAll('.hidden');
-    hiddenElements.forEach((el) => observer.observe(el));
 </script>
 
 <script>
