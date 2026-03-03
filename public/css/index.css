@@ -117,3 +117,62 @@
         grid-template-columns: 1fr;
     }
 }
+/* ==============================
+   NAV RESPONSIVE CONTROL
+   ============================== */
+
+.desktop-nav {
+    display: block;
+}
+
+.mobile-nav {
+    display: none;
+}
+
+@media (max-width: 991px) {
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: block;
+    }
+}
+
+/* Hamburger amarelo */
+.custom-toggler {
+    border: none;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.custom-toggler span {
+    width: 26px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+.custom-toggler:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.lang-inside {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.lang-inside a {
+    background: var(--accent);
+    color: #000;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+}
