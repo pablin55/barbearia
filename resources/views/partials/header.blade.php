@@ -1,5 +1,5 @@
 <!-- DESKTOP -->
-<div class="desktop-nav">
+<div class="desktop-nav d-none d-lg-block">
 
     <div class="top-header position-relative">
         
@@ -21,15 +21,24 @@
     </div>
 </div>
 
-        <a href="/login" class="btn-login-fixed">{{ __('Login') }}</a>
+       @if(Auth::check())
+    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+        @csrf
+        <button type="submit" class="btn-login-fixed" style="background:#d59c20; color:#fff; border:none; padding:8px 15px; border-radius:5px;">
+            {{ __('Logout') }}
+        </button>
+    </form>
+@else
+    <a href="{{ route('login') }}" class="btn-login-fixed" style="background:#d59c20; color:#fff; padding:8px 15px; border-radius:5px;">
+        {{ __('Login') }}
+    </a>
+@endif
 
         <div class="row align-items-center py-3 px-xl-5 m-0">
             
-            <div class="col-lg-3 d-none d-lg-block">
-                <img src="{{ asset('img/pbar.png') }}" 
-                     alt="{{ __('Pablo Barbershop') }}" 
-                     style="height: 120px;">
-            </div>
+            <div class="col-lg-3 d-none d-lg-block @if(request()->routeIs('login')) d-none @endif">
+    <img src="{{ asset('img/pbar.png') }}" alt="{{ __('Pablo Barbershop') }}" style="height: 120px;">
+</div>
 
             <div class="col-lg-6">
                 <nav class="navbar navbar-expand-lg navbar-light py-3 py-lg-0 justify-content-center">
@@ -65,18 +74,13 @@
 
 
 <!-- MENU MOBILE -->
-<div class="mobile-nav">
-
+<div class="mobile-nav d-lg-none">
     <nav class="navbar navbar-dark px-3">
-
         <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('img/pbar.png') }}" alt="Logo" style="height:60px;">
         </a>
 
-        <button class="navbar-toggler custom-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#mobileMenu">
+        <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#mobileMenu">
             <span></span>
             <span></span>
             <span></span>
@@ -98,11 +102,19 @@
                 </li>
 
                 <li class="nav-item mt-3">
-                    <a href="/login" class="btn btn-warning w-100 fw-bold">
-                        Login
-                    </a>
-                </li>
-
+    @if(Auth::check())
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-warning w-100 fw-bold">
+                {{ __('Logout') }}
+            </button>
+        </form>
+    @else
+        <a href="{{ route('login') }}" class="btn btn-warning w-100 fw-bold">
+            {{ __('Login') }}
+        </a>
+    @endif
+</li>
                 <li class="nav-item mt-3">
                     <div class="lang-inside">
                         <a href="{{ route('lang.switch', 'pt') }}">PT</a>

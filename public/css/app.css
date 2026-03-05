@@ -450,3 +450,40 @@ footer {
         font-size: 2rem;
     }
 }
+.custom-toggler {
+    border: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.custom-toggler span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px 0;
+    background-color: #d59c20; /* cor do traço */
+    transition: 0.4s;
+}
+
+/* Animação opcional: transformando em X ao abrir */
+.custom-toggler.collapsed span:nth-child(1) {
+    transform: rotate(0) translate(0, 0);
+}
+.custom-toggler.collapsed span:nth-child(2) {
+    opacity: 1;
+}
+.custom-toggler.collapsed span:nth-child(3) {
+    transform: rotate(0) translate(0, 0);
+}
+
+.custom-toggler:not(.collapsed) span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.custom-toggler:not(.collapsed) span:nth-child(2) {
+    opacity: 0;
+}
+.custom-toggler:not(.collapsed) span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
