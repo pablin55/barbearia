@@ -20,21 +20,23 @@ class Agendamento extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'nome_cliente',
-        'telefone',
-        'email',
-        'servico',
-        'preco',
-        'barbeiro',
-        'data_agendamento',
-        'horario_agendamento',
-        'status',
-        'forma_pagamento',
-        'status_pagamento',
-        'stripe_payment_id',
-        'valor_pago',
-        'observacoes',
-    ];
+    'nome_cliente',
+    'telefone',
+    'email',
+    'servico',
+    'preco',
+    'barbeiro',
+    'barbeiro_id',
+    'data_agendamento',
+    'horario_agendamento',
+    'status',
+    'forma_pagamento',
+    'status_pagamento',
+    'stripe_payment_id',
+    'valor_pago',
+    'pago',
+    'observacoes',
+];
 
     /**
      * Os atributos que devem ser convertidos.
@@ -203,6 +205,10 @@ class Agendamento extends Model
     public function scopeToday($query)
     {
         return $query->where('data_agendamento', now()->toDateString());
+    }
+        public function barbeiro()
+    {
+        return $this->belongsTo(\App\Models\Barbeiro::class);
     }
 }
 
