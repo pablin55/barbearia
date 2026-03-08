@@ -65,6 +65,22 @@ class AgendamentoController extends Controller
 
         // Obtém o barbeiro selecionado
         $barber = $request->input('barber', 'any');
+        
+        // Mapeamento entre a chave do barbeiro e o nome na tabela barbeiros
+        // Usa o método getBarberOptions() do modelo Agendamento para obter os nomes corretos
+        $barberOptions = Agendamento::getBarberOptions();
+        $barbeiroId = null;
+        
+        if ($barber !== 'any' && isset($barberOptions[$barber])) {
+            $barberName = $barberOptions[$barber]['name'];
+            // Remove aspas e caracteres especiais do nome para busca
+            $searchName = str_replace(['"', "'"], '', $barberName);
+            // Busca o barbeiro pelo nome na tabela barbeiros
+            $barbeiro = \App\Models\Barbeiro::where('nome', 'like', '%' . $searchName . '%')->first();
+            if ($barbeiro) {
+                $barbeiroId = $barbeiro->id;
+            }
+        }
 
         // Verifica se o horário já está ocupado (considerando também o barbeiro se selecionado)
         $query = Agendamento::where('data_agendamento', $request->input('date'))
@@ -95,6 +111,7 @@ class AgendamentoController extends Controller
             'servico' => $serviceKey,
             'preco' => $price,
             'barbeiro' => $barber,
+            'barbeiro_id' => $barbeiroId,
             'data_agendamento' => $request->input('date'),
             'horario_agendamento' => $request->input('time'),
             'status' => 'pending',

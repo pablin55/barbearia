@@ -11,41 +11,80 @@ class AgendamentoInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('nome_cliente'),
+                TextEntry::make('nome_cliente')
+                    ->label('Cliente'),
                 TextEntry::make('telefone'),
                 TextEntry::make('email')
-                    ->label('Email address')
+                    ->label('E-mail')
                     ->placeholder('-'),
-                TextEntry::make('servico'),
+                TextEntry::make('servico')
+                    ->label('Serviço')
+                    ->formatStateUsing(fn ($state) => \App\Models\Agendamento::getServiceOptions()[$state]['name'] ?? ucwords(str_replace('_', ' ', $state))),
                 TextEntry::make('preco')
-                    ->numeric(),
+                    ->label('Valor')
+                    ->numeric()
+                    ->money('BRL'),
                 TextEntry::make('barbeiro')
+                    ->label('Barbeiro')
                     ->placeholder('-'),
                 TextEntry::make('data_agendamento')
-                    ->date(),
+                    ->label('Data')
+                    ->date('d/m/Y'),
                 TextEntry::make('horario_agendamento')
-                    ->time(),
+                    ->label('Horário')
+                    ->time('H:i'),
                 TextEntry::make('status')
-                    ->badge(),
+                    ->label('Status')
+                    ->badge()
+                    ->colors([
+                        'warning' => 'pending',
+                        'info' => 'confirmed',
+                        'success' => 'completed',
+                        'danger' => 'cancelled',
+                        'gray' => 'no_show',
+                    ])
+                    ->formatStateUsing(fn ($state) => match($state) {
+                        'pending' => 'Pendente',
+                        'confirmed' => 'Confirmado',
+                        'completed' => 'Concluído',
+                        'cancelled' => 'Cancelado',
+                        'no_show' => 'Não Compareceu',
+                        default => $state,
+                    }),
                 TextEntry::make('forma_pagamento')
+                    ->label('Forma de Pagamento')
                     ->placeholder('-'),
                 TextEntry::make('status_pagamento')
-                    ->badge(),
+                    ->label('Status Pagamento')
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => match($state) {
+                        'pending' => 'Pendente',
+                        'paid' => 'Pago',
+                        'failed' => 'Falhou',
+                        'refunded' => 'Reembolsado',
+                        default => $state,
+                    }),
                 TextEntry::make('stripe_payment_id')
+                    ->label('ID Pagamento Stripe')
                     ->placeholder('-'),
                 TextEntry::make('valor_pago')
+                    ->label('Valor Pago')
                     ->numeric()
+                    ->money('BRL')
                     ->placeholder('-'),
                 TextEntry::make('observacoes')
+                    ->label('Observações')
                     ->placeholder('-')
                     ->columnSpanFull(),
                 TextEntry::make('created_at')
-                    ->dateTime()
+                    ->label('Criado em')
+                    ->dateTime('d/m/Y H:i')
                     ->placeholder('-'),
                 TextEntry::make('updated_at')
-                    ->dateTime()
+                    ->label('Atualizado em')
+                    ->dateTime('d/m/Y H:i')
                     ->placeholder('-'),
-                    TextEntry::make('pago')
+                TextEntry::make('pago')
                     ->label('Pagamento')
                     ->formatStateUsing(fn ($state) => $state ? 'Pago ✅' : 'Não pago ❌'),
             ]);

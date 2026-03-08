@@ -17,7 +17,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role', // admin ou barbeiro
+        'role', // admin, barbeiro ou vendedor
+        'barbeiro_id',
+        'barbeiros', // JSON array de IDs de barbeiros para vendedores
     ];
 
     /**
@@ -36,6 +38,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'barbeiros' => 'array',
         ];
     }
 
@@ -54,8 +57,70 @@ class User extends Authenticatable
     {
         return $this->role === 'barbeiro';
     }
-        public function barbeiro()
+
+    /**
+     * Verifica se é vendedor
+     */
+    public function isVendedor()
+    {
+        return $this->role === 'vendedor';
+    }
+
+    /**
+     * Relacionamento com barbeiro (para usuarios que sao barbeiros)
+     */
+    public function barbeiro()
     {
         return $this->belongsTo(\App\Models\Barbeiro::class);
+    }
+
+    /**
+     * Relacionamento com barbeiros (para vendedores)
+     * Um vendedor pode gerenciar varios barbeiros
+     */
+    public function barbeiten()
+    {
+        return $this->belongsToMany(
+            \App\Models\Barbeiro::class,
+            'user_barbeiros',
+            'user_id',
+            'barbeiro_id'
+        );
+    }
+
+    /**
+     * Obtem os IDs dos barbeiros que o usuario pode gerenciar
+     * Para vendedores, retorna os barbeiros atribuidos
+     * Para barbeiros, retorna apenas seu proprio ID
+     */
+    public function getAllowedBarberIds(): array
+    {
+        if ($this->isAdmin()) {
+            return []; // Admin pode ver todos
+        }
+
+        if ($this->isBarbeiro() && $this->barbeiro_id) {
+            return [$this->barbeiro_id];
+        }
+
+        if ($this->isVendedor() && $this->barbeiros) {
+            return $this->barbeiros;
+        }
+
+        return [];
+    }
+
+    /**
+     * Verifica se o usuario pode ver agendamentos de um barbeiro especifico
+     */
+    public function canViewBarberAgendamento(int $barbeiroId): bool
+    {
+        if ($this->isAdmin()) {
+            return true;
+        }
+
+        $allowedBarbers = $this->getAllowedBarberIds();
+        
+        return in_array($barbeiroId, $allowedBarbers);
     }
 }

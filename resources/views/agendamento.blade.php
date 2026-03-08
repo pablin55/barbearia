@@ -126,16 +126,20 @@
                         </div>
                     </label>
 
+                    @php
+                        $barbeiros = \App\Models\Agendamento::getBarberOptions();
+                    @endphp
+
                     <!-- Pablo -->
                     <label class="barber-card {{ request('barber') == 'pablo' ? 'selected' : '' }}">
                         <input type="radio" name="barber" value="pablo" {{ request('barber') == 'pablo' ? 'checked' : '' }}>
                         <div class="barber-image">
-                            <img src="{{ asset('img/pablo.jpeg') }}" alt="Pablo Apolinario">
+                            <img src="{{ $barbeiros['pablo']['image'] }}" alt="Pablo Apolinario">
                             <span class="barber-badge">CEO</span>
                         </div>
                         <div class="barber-info">
-                            <span class="barber-name">Pablo Apolinario</span>
-                            <span class="barber-role">Fundador & CEO</span>
+                            <span class="barber-name">{{ $barbeiros['pablo']['name'] }}</span>
+                            <span class="barber-role">{{ $barbeiros['pablo']['role'] }}</span>
                         </div>
                     </label>
 
@@ -143,11 +147,11 @@
                     <label class="barber-card {{ request('barber') == 'juan' ? 'selected' : '' }}">
                         <input type="radio" name="barber" value="juan" {{ request('barber') == 'juan' ? 'checked' : '' }}>
                         <div class="barber-image">
-                            <img src="{{ asset('img/juan1.jpeg') }}" alt="Juan Pablo">
+                            <img src="{{ $barbeiros['juan']['image'] }}" alt="Juan Pablo">
                         </div>
                         <div class="barber-info">
-                            <span class="barber-name">Juan Pablo</span>
-                            <span class="barber-role">Barbeiro</span>
+                            <span class="barber-name">{{ $barbeiros['juan']['name'] }}</span>
+                            <span class="barber-role">{{ $barbeiros['juan']['role'] }}</span>
                         </div>
                     </label>
 
@@ -155,11 +159,11 @@
                     <label class="barber-card {{ request('barber') == 'wesley' ? 'selected' : '' }}">
                         <input type="radio" name="barber" value="wesley" {{ request('barber') == 'wesley' ? 'checked' : '' }}>
                         <div class="barber-image">
-                            <img src="{{ asset('img/wss.jpeg') }}" alt="Wesley WS">
+                            <img src="{{ $barbeiros['wesley']['image'] }}" alt="Wesley WS">
                         </div>
                         <div class="barber-info">
-                            <span class="barber-name">Wesley "WS"</span>
-                            <span class="barber-role">Barbeiro</span>
+                            <span class="barber-name">{{ $barbeiros['wesley']['name'] }}</span>
+                            <span class="barber-role">{{ $barbeiros['wesley']['role'] }}</span>
                         </div>
                     </label>
 
@@ -167,11 +171,11 @@
                     <label class="barber-card {{ request('barber') == 'vinicius' ? 'selected' : '' }}">
                         <input type="radio" name="barber" value="vinicius" {{ request('barber') == 'vinicius' ? 'checked' : '' }}>
                         <div class="barber-image">
-                            <img src="{{ asset('img/vnz.jpeg') }}" alt="Vinícius VN">
+                            <img src="{{ $barbeiros['vinicius']['image'] }}" alt="Vinícius VN">
                         </div>
                         <div class="barber-info">
-                            <span class="barber-name">Vinícius "VN"</span>
-                            <span class="barber-role">Barbeiro</span>
+                            <span class="barber-name">{{ $barbeiros['vinicius']['name'] }}</span>
+                            <span class="barber-role">{{ $barbeiros['vinicius']['role'] }}</span>
                         </div>
                     </label>
                 </div>

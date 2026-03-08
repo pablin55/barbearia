@@ -20,9 +20,17 @@ class BarbeiroResource extends Resource
 {
     protected static ?string $model = Barbeiro::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
-    protected static ?string $recordTitleAttribute = 'barbeiro';
+    protected static ?string $navigationLabel = 'Barbeiros';
+
+    protected static ?string $pluralModelLabel = 'Barbeiros';
+
+    protected static ?string $modelLabel = 'Barbeiro';
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $recordTitleAttribute = 'nome';
 
     // TODOS podem ver o menu
     public static function canViewAny(): bool

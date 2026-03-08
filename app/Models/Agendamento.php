@@ -84,28 +84,55 @@ class Agendamento extends Model
 
     /**
      * Opções de barbeiros disponíveis.
+     * Agora busca a foto dinamicamente da tabela barbeiros se disponível.
      */
     public static function getBarberOptions(): array
     {
+        // Mapeamento entre chave do barbeiro e nomes possíveis (prioriza mais específicos primeiro)
+        $barberMapping = [
+            'pablo' => ['Pablo Apolinário', 'Pablo Apolinario', 'Apolinário', 'Apolinario'],
+            'juan' => ['Juan Pablo', 'Juan'],
+            'wesley' => ['Wesley'],
+            'vinicius' => ['Vinícius', 'Vinicius'],
+        ];
+
+        // Busca fotos dos barbeiros na tabela barbeiros
+        $barbeiros = \App\Models\Barbeiro::where('ativo', true)->get();
+        $barbeiroFotos = [];
+        
+        foreach ($barbeiros as $barbeiro) {
+            foreach ($barberMapping as $key => $nomesBusca) {
+                foreach ($nomesBusca as $nomeBusca) {
+                    if (stripos($barbeiro->nome, $nomeBusca) !== false) {
+                        // Se o barbeiro tem foto, usa
+                        if (!empty($barbeiro->foto)) {
+                            $barbeiroFotos[$key] = $barbeiro->foto_url;
+                        }
+                        break 2; // Sai dos dois loops
+                    }
+                }
+            }
+        }
+
         return [
             'pablo' => [
                 'name' => 'Pablo Apolinario',
-                'image' => 'img/pablo.jpeg',
+                'image' => $barbeiroFotos['pablo'] ?? 'img/pablo.jpeg',
                 'role' => 'CEO & Fundador'
             ],
             'juan' => [
                 'name' => 'Juan Pablo',
-                'image' => 'img/juan1.jpeg',
+                'image' => $barbeiroFotos['juan'] ?? 'img/juan1.jpeg',
                 'role' => 'Barbeiro'
             ],
             'wesley' => [
                 'name' => 'Wesley "WS"',
-                'image' => 'img/wss.jpeg',
+                'image' => $barbeiroFotos['wesley'] ?? 'img/wss.jpeg',
                 'role' => 'Barbeiro'
             ],
             'vinicius' => [
                 'name' => 'Vinícius "VN"',
-                'image' => 'img/vnz.jpeg',
+                'image' => $barbeiroFotos['vinicius'] ?? 'img/vnz.jpeg',
                 'role' => 'Barbeiro'
             ],
             'any' => [

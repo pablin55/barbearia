@@ -9,6 +9,7 @@ use App\Filament\Resources\Agendamentos\Pages\ViewAgendamento;
 use App\Filament\Resources\Agendamentos\Schemas\AgendamentoForm;
 use App\Filament\Resources\Agendamentos\Schemas\AgendamentoInfolist;
 use App\Filament\Resources\Agendamentos\Tables\AgendamentosTable;
+use App\Filament\Resources\Agendamentos\Tables\AgendamentosBarbeiroTable;
 use App\Models\Agendamento;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -21,9 +22,17 @@ class AgendamentoResource extends Resource
 {
     protected static ?string $model = Agendamento::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendarDays;
 
-    protected static ?string $recordTitleAttribute = 'agendamento';
+    protected static ?string $navigationLabel = 'Agendamentos';
+
+    protected static ?string $pluralModelLabel = 'Agendamentos';
+
+    protected static ?string $modelLabel = 'Agendamento';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $recordTitleAttribute = 'nome_cliente';
 
     public static function form(Schema $schema): Schema
     {
@@ -37,6 +46,14 @@ class AgendamentoResource extends Resource
 
     public static function table(Table $table): Table
     {
+        // Se for barbeiro, usa a tabela otimizada para barbeiros
+        $role = auth()->user()?->role;
+        
+        if ($role === 'barbeiro') {
+            return AgendamentosBarbeiroTable::configure($table);
+        }
+
+        // Admin e vendedor usam a mesma tabela
         return AgendamentosTable::configure($table);
     }
 
@@ -61,8 +78,18 @@ class AgendamentoResource extends Resource
 
         $user = auth()->user();
 
-        if ($user && $user->role === 'barbeiro') {
+        if (!$user) {
+            return $query;
+        }
+
+        // Se for barbeiro, mostra apenas os agendamentos dele
+        if ($user->role === 'barbeiro' && $user->barbeiro_id) {
             $query->where('barbeiro_id', $user->barbeiro_id);
+        }
+
+        // Se for vendedor, mostra apenas os agendamentos dos barbeiros atribuidos
+        if ($user->role === 'vendedor' && $user->barbeiros) {
+            $query->whereIn('barbeiro_id', $user->barbeiros);
         }
 
         return $query;
