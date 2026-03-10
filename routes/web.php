@@ -46,13 +46,5 @@ Route::get('/agendamento', [AgendamentoController::class, 'create'])->name('agen
 // Rota POST: Processa o formulário de agendamento
 Route::post('/agendamento', [AgendamentoController::class, 'store'])->name('agendamento.store');
 
-// ============================================
-// ROTAS DE ADMINISTRAÇÃO (futuro)
-// ============================================
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/admin/agendamentos', [AgendamentoController::class, 'index'])->name('admin.agendamentos.index');
-//     Route::patch('/admin/agendamentos/{agendamento}/confirm', [AgendamentoController::class, 'confirm'])->name('admin.agendamentos.confirm');
-//     Route::patch('/admin/agendamentos/{agendamento}/cancel', [AgendamentoController::class, 'cancel'])->name('admin');
-//     Route.agendamentos.cancel::patch('/admin/agendamentos/{agendamento}/complete', [AgendamentoController::class, 'complete'])->name('admin.agendamentos.complete');
-// });
+
 
