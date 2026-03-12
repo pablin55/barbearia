@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->nullable(); // E-mail (opcional)
             
             // Informações do serviço
-            $table->string('servico'); // Tipo de serviço (simple_cut, social_cut, etc.)
+            $table->string('servico'); // Tipo de serviço (corte_simples, corte_social, etc.)
             $table->decimal('preco', 10, 2); // Preço do serviço
             
             // Informações do barbeiro (opcional)
@@ -40,17 +40,6 @@ return new class extends Migration
                 'no_show'       // Não compareceu
             ])->default('pending');
             
-            // Informações de pagamento
-            $table->string('forma_pagamento')->nullable(); // Forma de pagamento
-            $table->enum('status_pagamento', [
-                'pending',      // Pendente
-                'paid',         // Pago
-                'failed',       // Falhou
-                'refunded'      // Estornado
-            ])->default('pending');
-            $table->string('stripe_payment_id')->nullable(); // ID do pagamento Stripe
-            $table->decimal('valor_pago', 10, 2)->nullable(); // Valor pago
-            
             // Observações
             $table->text('observacoes')->nullable(); // Observações do cliente
             
@@ -60,7 +49,6 @@ return new class extends Migration
             // Índice para buscas
             $table->index(['data_agendamento', 'horario_agendamento']);
             $table->index('status');
-            $table->index('status_pagamento');
         });
     }
 

@@ -1,6 +1,6 @@
 @extends('layouts.agendamento')
 
-@section('title', 'Agendar Horário')
+@section('title', __('Schedule Appointment'))
 
 @push('styles')
 <link href="{{ asset('css/agendamento.css') }}" rel="stylesheet">
@@ -9,8 +9,8 @@
 @section('content')
 <section class="schedule-section">
     <div class="schedule-container">
-        <h2>Agende Seu Horário</h2>
-        <p class="text-muted">Selecione um serviço, data e horário para seu agendamento</p>
+        <h2>{{ __('Schedule Your Appointment') }}</h2>
+        <p class="text-muted">{{ __('Select a service, date and time for your appointment') }}</p>
 
         <!-- Formulário de Agendamento -->
         <form id="appointment-form" method="POST" action="{{ route('agendamento.store') }}">
@@ -18,73 +18,73 @@
             
             <!-- Seleção de Serviço -->
             <div class="form-group">
-                <label for="service">Selecione o Serviço</label>
+                <label for="service">{{ __('Select Service') }}</label>
                 <select id="service" name="service" class="form-control" required>
-                    <option value="">Escolha um serviço...</option>
+                    <option value="">{{ __('Choose a service...') }}</option>
                     
                     <!-- Serviços Individuais -->
-                    <option value="simple_cut" {{ request('service') == 'simple_cut' ? 'selected' : '' }}>
-                        Corte Simples / Máquina - R$19,90
+                    <option value="corte_simples" {{ request('service') == 'corte_simples' ? 'selected' : '' }}>
+                        {{ __('Simple Cut / Machine only') }} - R$19,90
                     </option>
-                    <option value="social_cut" {{ request('service') == 'social_cut' ? 'selected' : '' }}>
-                        Corte Social / Fade / Surfer - R$29,90
+                    <option value="corte_social" {{ request('service') == 'corte_social' ? 'selected' : '' }}>
+                        {{ __('Social Cut / Fade / Surfer') }} - R$29,90
                     </option>
-                    <option value="scissor_cut" {{ request('service') == 'scissor_cut' ? 'selected' : '' }}>
-                        Corte Tesoura - R$49,90
+                    <option value="corte_tesoura" {{ request('service') == 'corte_tesoura' ? 'selected' : '' }}>
+                        {{ __('Scissor Cut') }} - R$49,90
                     </option>
-                    <option value="cut_beard" {{ request('service') == 'cut_beard' ? 'selected' : '' }}>
-                        Corte com Barba - R$59,90
+                    <option value="corte_barba" {{ request('service') == 'corte_barba' ? 'selected' : '' }}>
+                        {{ __('Cut with Beard') }} - R$59,90
                     </option>
-                    <option value="cut_highlights" {{ request('service') == 'cut_highlights' ? 'selected' : '' }}>
-                        Corte + Luzes / Platinum - R$99,90
+                    <option value="corte_luzes" {{ request('service') == 'corte_luzes' ? 'selected' : '' }}>
+                        {{ __('Cut + Highlights / Platinum') }} - R$99,90
                     </option>
-                    <option value="cut_pigmentation" {{ request('service') == 'cut_pigmentation' ? 'selected' : '' }}>
-                        Corte com Pigmentação - R$49,90
+                    <option value="corte_pigmentacao" {{ request('service') == 'corte_pigmentacao' ? 'selected' : '' }}>
+                        {{ __('Cut with Pigmentation') }} - R$49,90
                     </option>
-                    <option value="beard" {{ request('service') == 'beard' ? 'selected' : '' }}>
-                        Barba - R$29,90
+                    <option value="barba" {{ request('service') == 'barba' ? 'selected' : '' }}>
+                        {{ __('Beard') }} - R$29,90
                     </option>
-                    <option value="beard_pigmentation" {{ request('service') == 'beard_pigmentation' ? 'selected' : '' }}>
-                        Barba com Pigmentação - R$39,90
+                    <option value="barba_pigmentacao" {{ request('service') == 'barba_pigmentacao' ? 'selected' : '' }}>
+                        {{ __('Beard with Pigmentation') }} - R$39,90
                     </option>
-                    <option value="cut_hydration" {{ request('service') == 'cut_hydration' ? 'selected' : '' }}>
-                        Corte + Hidratação - R$49,90
+                    <option value="corte_hidratacao" {{ request('service') == 'corte_hidratacao' ? 'selected' : '' }}>
+                        {{ __('Cut + Hydration') }} - R$49,90
                     </option>
-                    <option value="eyebrow" {{ request('service') == 'eyebrow' ? 'selected' : '' }}>
-                        Sobrancelha - R$9,90
+                    <option value="sobrancelha" {{ request('service') == 'sobrancelha' ? 'selected' : '' }}>
+                        {{ __('Eyebrow') }} - R$9,90
                     </option>
-                    <option value="colorimetry_cut" {{ request('service') == 'colorimetry_cut' ? 'selected' : '' }}>
-                        Colorimetria + Corte - R$149,90
+                    <option value="colorimetria_corte" {{ request('service') == 'colorimetria_corte' ? 'selected' : '' }}>
+                        {{ __('Colorimetry + Cut') }} - R$149,90
                     </option>
-                    <option value="children_cut" {{ request('service') == 'children_cut' ? 'selected' : '' }}>
-                        Corte Infantil - R$39,90
+                    <option value="corte_infantil" {{ request('service') == 'corte_infantil' ? 'selected' : '' }}>
+                        {{ __('Children\'s Cut') }} - R$39,90
                     </option>
                     
                     <!-- Planos Mensais -->
-                    <optgroup label="Planos Mensais">
-                        <option value="simple_cut_plan" {{ request('service') == 'simple_cut_plan' ? 'selected' : '' }}>
-                            Plano Corte Simples (Mensal) - R$59,90
+                    <optgroup label="{{ __('Monthly Plans') }}">
+                        <option value="plano_corte_simples" {{ request('service') == 'plano_corte_simples' ? 'selected' : '' }}>
+                            {{ __('Simple Cut Plan (Monthly)') }} - R$59,90
                         </option>
-                        <option value="normal_cut_plan" {{ request('service') == 'normal_cut_plan' ? 'selected' : '' }}>
-                            Plano Corte Normal (Mensal) - R$99,90
+                        <option value="plano_corte_normal" {{ request('service') == 'plano_corte_normal' ? 'selected' : '' }}>
+                            {{ __('Normal Cut Plan (Monthly)') }} - R$99,90
                         </option>
-                        <option value="cut_pigmentation_plan" {{ request('service') == 'cut_pigmentation_plan' ? 'selected' : '' }}>
-                            Plano Corte + Pigmentação (Mensal) - R$179,90
+                        <option value="plano_corte_pigmentacao" {{ request('service') == 'plano_corte_pigmentacao' ? 'selected' : '' }}>
+                            {{ __('Cut + Pigmentation Plan (Monthly)') }} - R$179,90
                         </option>
-                        <option value="children_cut_plan" {{ request('service') == 'children_cut_plan' ? 'selected' : '' }}>
-                            Plano Corte Infantil (Mensal) - R$139,90
+                        <option value="plano_corte_infantil" {{ request('service') == 'plano_corte_infantil' ? 'selected' : '' }}>
+                            {{ __('Children\'s Cut Plan (Monthly)') }} - R$139,90
                         </option>
-                        <option value="beard_plan" {{ request('service') == 'beard_plan' ? 'selected' : '' }}>
-                            Plano Barba (Mensal) - R$99,90
+                        <option value="plano_barba" {{ request('service') == 'plano_barba' ? 'selected' : '' }}>
+                            {{ __('Beard Plan (Monthly)') }} - R$99,90
                         </option>
-                        <option value="eyebrow_plan" {{ request('service') == 'eyebrow_plan' ? 'selected' : '' }}>
-                            Plano Sobrancelha (Mensal) - R$29,90
+                        <option value="plano_sobrancelha" {{ request('service') == 'plano_sobrancelha' ? 'selected' : '' }}>
+                            {{ __('Eyebrow Plan (Monthly)') }} - R$29,90
                         </option>
-                        <option value="hair_beard_plan" {{ request('service') == 'hair_beard_plan' ? 'selected' : '' }}>
-                            Plano Cabelo + Barba (Mensal) - R$219,90
+                        <option value="plano_cabelo_barba" {{ request('service') == 'plano_cabelo_barba' ? 'selected' : '' }}>
+                            {{ __('Hair + Beard Plan (Monthly)') }} - R$219,90
                         </option>
-                        <option value="scissor_cut_plan" {{ request('service') == 'scissor_cut_plan' ? 'selected' : '' }}>
-                            Plano Corte Tesoura (Mensal) - R$180,00
+                        <option value="plano_corte_tesoura" {{ request('service') == 'plano_corte_tesoura' ? 'selected' : '' }}>
+                            {{ __('Scissor Cut Plan (Monthly)') }} - R$180,00
                         </option>
                     </optgroup>
                 </select>
@@ -92,54 +92,50 @@
 
             <!-- Nome do Cliente -->
             <div class="form-group">
-                <label for="name">Seu Nome</label>
-                <input type="text" id="name" name="name" class="form-control" placeholder="Digite seu nome completo" required>
+                <label for="name">{{ __('Your Name') }}</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="{{ __('Enter your full name') }}" required>
             </div>
 
             <!-- Telefone -->
             <div class="form-group">
-                <label for="phone">Telefone</label>
+                <label for="phone">{{ __('Phone Number') }}</label>
                 <input type="tel" id="phone" name="phone" class="form-control" placeholder="(00) 00000-0000" required>
             </div>
 
             <!-- E-mail -->
             <div class="form-group">
-                <label for="email">E-mail</label>
+                <label for="email">{{ __('Email') }}</label>
                 <input type="email" id="email" name="email" class="form-control" placeholder="seu@email.com">
             </div>
 
             <!-- Escolha do Barbeiro -->
             <div class="form-group">
-                <label>Escolha o Barbeiro (Opcional)</label>
-                <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 15px;">Selecione seu barbeiro preferido ou escolha "Qualquer Barbeiro" para melhor disponibilidade</p>
+                <label>{{ __('Choose Barber') }}</label>
+                <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 15px;">{{ __('Select preferred barber') }}</p>
                 
                 <div class="barber-selection">
                     <!-- Qualquer Barbeiro -->
                     <label class="barber-card {{ request('barber') == 'any' || !request('barber') ? 'selected' : '' }}">
                         <input type="radio" name="barber" value="any" {{ request('barber') == 'any' || !request('barber') ? 'checked' : '' }}>
                         <div class="barber-image">
-                            <img src="{{ asset('img/barbearia.jpeg') }}" alt="Qualquer Barbeiro">
+                            <img src="{{ asset('img/barbearia.jpeg') }}" alt="{{ __('Any Barber') }}">
                         </div>
                         <div class="barber-info">
-                            <span class="barber-name">Qualquer Barbeiro</span>
-                            <span class="barber-role">Melhor disponibilidade</span>
+                            <span class="barber-name">{{ __('Any Barber') }}</span>
+                            <span class="barber-role">{{ __('Best availability') }}</span>
                         </div>
                     </label>
-
-                    @php
-                        $barbeiros = \App\Models\Agendamento::getBarberOptions();
-                    @endphp
 
                     <!-- Pablo -->
                     <label class="barber-card {{ request('barber') == 'pablo' ? 'selected' : '' }}">
                         <input type="radio" name="barber" value="pablo" {{ request('barber') == 'pablo' ? 'checked' : '' }}>
                         <div class="barber-image">
-                            <img src="{{ $barbeiros['pablo']['image'] }}" alt="Pablo Apolinario">
+                            <img src="{{ asset('img/pablo.jpeg') }}" alt="Pablo Apolinario">
                             <span class="barber-badge">CEO</span>
                         </div>
                         <div class="barber-info">
-                            <span class="barber-name">{{ $barbeiros['pablo']['name'] }}</span>
-                            <span class="barber-role">{{ $barbeiros['pablo']['role'] }}</span>
+                            <span class="barber-name">Pablo Apolinario</span>
+                            <span class="barber-role">{{ __('Founder & CEO') }}</span>
                         </div>
                     </label>
 
@@ -147,11 +143,11 @@
                     <label class="barber-card {{ request('barber') == 'juan' ? 'selected' : '' }}">
                         <input type="radio" name="barber" value="juan" {{ request('barber') == 'juan' ? 'checked' : '' }}>
                         <div class="barber-image">
-                            <img src="{{ $barbeiros['juan']['image'] }}" alt="Juan Pablo">
+                            <img src="{{ asset('img/juan1.jpeg') }}" alt="Juan Pablo">
                         </div>
                         <div class="barber-info">
-                            <span class="barber-name">{{ $barbeiros['juan']['name'] }}</span>
-                            <span class="barber-role">{{ $barbeiros['juan']['role'] }}</span>
+                            <span class="barber-name">Juan Pablo</span>
+                            <span class="barber-role">{{ __('Barber') }}</span>
                         </div>
                     </label>
 
@@ -159,11 +155,11 @@
                     <label class="barber-card {{ request('barber') == 'wesley' ? 'selected' : '' }}">
                         <input type="radio" name="barber" value="wesley" {{ request('barber') == 'wesley' ? 'checked' : '' }}>
                         <div class="barber-image">
-                            <img src="{{ $barbeiros['wesley']['image'] }}" alt="Wesley WS">
+                            <img src="{{ asset('img/wss.jpeg') }}" alt="Wesley WS">
                         </div>
                         <div class="barber-info">
-                            <span class="barber-name">{{ $barbeiros['wesley']['name'] }}</span>
-                            <span class="barber-role">{{ $barbeiros['wesley']['role'] }}</span>
+                            <span class="barber-name">Wesley "WS"</span>
+                            <span class="barber-role">{{ __('Barber') }}</span>
                         </div>
                     </label>
 
@@ -171,11 +167,11 @@
                     <label class="barber-card {{ request('barber') == 'vinicius' ? 'selected' : '' }}">
                         <input type="radio" name="barber" value="vinicius" {{ request('barber') == 'vinicius' ? 'checked' : '' }}>
                         <div class="barber-image">
-                            <img src="{{ $barbeiros['vinicius']['image'] }}" alt="Vinícius VN">
+                            <img src="{{ asset('img/vnz.jpeg') }}" alt="Vinícius VN">
                         </div>
                         <div class="barber-info">
-                            <span class="barber-name">{{ $barbeiros['vinicius']['name'] }}</span>
-                            <span class="barber-role">{{ $barbeiros['vinicius']['role'] }}</span>
+                            <span class="barber-name">Vinícius "VN"</span>
+                            <span class="barber-role">{{ __('Barber') }}</span>
                         </div>
                     </label>
                 </div>
@@ -183,15 +179,15 @@
 
             <!-- Seleção de Data -->
             <div class="form-group">
-                <label for="date">Selecione a Data</label>
+                <label for="date">{{ __('Select Date') }}</label>
                 <input type="date" id="date" name="date" class="form-control" required>
             </div>
 
             <!-- Seleção de Horário -->
             <div class="form-group">
-                <label for="time">Selecione o Horário</label>
+                <label for="time">{{ __('Select Time') }}</label>
                 <select id="time" name="time" class="form-control" required>
-                    <option value="">Escolha um horário...</option>
+                    <option value="">{{ __('Choose a time...') }}</option>
                     <option value="09:00">09:00</option>
                     <option value="09:30">09:30</option>
                     <option value="10:00">10:00</option>
@@ -214,66 +210,29 @@
                 </select>
             </div>
 
-            <!-- Forma de Pagamento -->
-            <div class="form-group">
-                <label for="payment_method">Forma de Pagamento</label>
-                <select id="payment_method" name="payment_method" class="form-control" required>
-                    <option value="">Escolha a forma de pagamento...</option>
-                    
-                    <!-- Pagamento na Barbearia -->
-                    <optgroup label="Pagamento na Barbearia">
-                        <option value="dinheiro">
-                            💵 Dinheiro
-                        </option>
-                        <option value="pix">
-                            🔵 PIX
-                        </option>
-                        <option value="credit_card">
-                            💳 Cartão de Crédito
-                        </option>
-                        <option value="debit_card">
-                            💳 Cartão de Débito
-                        </option>
-                    </optgroup>
-                    
-                    <!-- Pagamento Online (Stripe) -->
-                    <optgroup label="Pagamento Online (Stripe)">
-                        <option value="stripe_credit">
-                            💳 Cartão de Crédito
-                        </option>
-                        <option value="stripe_debit">
-                            💳 Cartão de Débito
-                        </option>
-                        <option value="stripe_pix">
-                            🔵 PIX
-                        </option>
-                    </optgroup>
-                </select>
-            </div>
-
             <!-- Observações Adicionais -->
             <div class="form-group">
-                <label for="notes">Observações Adicionais (Opcional)</label>
-                <textarea id="notes" name="notes" class="form-control" rows="3" placeholder="Alguma solicitação especial ou observação..."></textarea>
+                <label for="notes">{{ __('Additional Notes') }} ({{ __('Optional') }})</label>
+                <textarea id="notes" name="notes" class="form-control" rows="3" placeholder="{{ __('Any special requests or observations...') }}"></textarea>
             </div>
 
             <!-- Termos de Uso -->
             <div class="form-group">
                 <div class="terms-box">
                     <input type="checkbox" id="terms" name="terms" required>
-                    <label for="terms">Eu li e aceito os <a href="#" target="_blank">Termos de Uso</a> e <a href="#" target="_blank">Política de Privacidade</a></label>
+                    <label for="terms">{!! __('I accept the Terms of Use and Privacy Policy') !!}</label>
                 </div>
             </div>
 
             <!-- Botão de Confirmar Agendamento -->
-            <button type="submit" class="btn btn-primary btn-block">Confirmar Agendamento</button>
+            <button type="submit" class="btn btn-primary btn-block">{{ __('Confirm Appointment') }}</button>
         </form>
 
         <!-- Informações de Contato -->
         <div class="contact-info">
-            <h4>Entre em Contato</h4>
-            <p><i class="fas fa-phone"></i> Telefone: (11) 99999-9999</p>
-            <p><i class="fas fa-map-marker-alt"></i> Endereço: Rua Exemplo, 123</p>
+            <h4>{{ __('Contact Us') }}</h4>
+            <p><i class="fas fa-phone"></i> {{ __('Phone') }}: (83) 9 9623-2639</p>
+            <p><i class="fas fa-map-marker-alt"></i> {{ __('Address') }}: {{ __('Rua Elías Cavalcanti de Albuquerque, 2165') }}</p>
             <p><i class="fab fa-instagram"></i> @pablobarbershop</p>
         </div>
     </div>
