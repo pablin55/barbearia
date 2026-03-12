@@ -30,7 +30,6 @@ class AgendamentoController extends Controller
             'barber' => 'nullable|string',
             'date' => 'required|date|after_or_equal:today',
             'time' => 'required',
-            'payment_method' => 'required|string',
             'notes' => 'nullable|string|max:1000',
             'terms' => 'required|accepted',
         ], [
@@ -40,7 +39,6 @@ class AgendamentoController extends Controller
             'date.required' => 'A data do agendamento é obrigatória.',
             'date.after_or_equal' => 'A data não pode ser no passado.',
             'time.required' => 'O horário é obrigatório.',
-            'payment_method.required' => 'Selecione uma forma de pagamento.',
             'terms.required' => 'Você deve aceitar os termos de uso.',
         ]);
 
@@ -54,7 +52,7 @@ class AgendamentoController extends Controller
         // Obtém o preço do serviço selecionado
         $services = Agendamento::getServiceOptions();
         $serviceKey = $request->input('service');
-        $price = $services[$serviceKey]['price'] ?? 0;
+        $price = $services[$serviceKey]['preco'] ?? 0;
 
         // Verifica se o serviço existe
         if (!$price) {
@@ -98,111 +96,16 @@ class AgendamentoController extends Controller
             'data_agendamento' => $request->input('date'),
             'horario_agendamento' => $request->input('time'),
             'status' => 'pending',
-            'forma_pagamento' => $request->input('payment_method'),
-            'status_pagamento' => 'pending',
             'observacoes' => $request->input('notes'),
         ]);
-
-        // Obtém a forma de pagamento
-        $paymentMethod = $request->input('payment_method');
 
         // Obtém informações do barbeiro
         $barbers = Agendamento::getBarberOptions();
         $barberName = $barbers[$barber]['name'] ?? 'Qualquer Barbeiro';
 
-        // Verifica se o pagamento é via Stripe (online)
-        if (in_array($paymentMethod, ['stripe_credit', 'stripe_debit', 'stripe_pix'])) {
-            return redirect()->route('agendamento')
-                ->with('success', "Agendamento realizado com sucesso com o(a) {$barberName}! Em breve você receberá um link para pagamento via Stripe.");
-        }
-
-        // Para pagamentos na barbearia (dinheiro, pix, cartão)
-        $paymentMessages = [
-            'dinheiro' => "Agendamento realizado com sucesso! Você será atendido pelo(a) {$barberName}. Compareça à barbearia no horário agendado e efetue o pagamento em dinheiro.",
-            'pix' => "Agendamento realizado com sucesso! Você será atendido pelo(a) {$barberName}. Compareça à barbearia no horário agendado e efetue o pagamento via PIX.",
-            'credit_card' => "Agendamento realizado com sucesso! Você será atendido pelo(a) {$barberName}. Compareça à barbearia no horário agendado e efetue o pagamento no cartão de crédito.",
-            'debit_card' => "Agendamento realizado com sucesso! Você será atendido pelo(a) {$barberName}. Compareça à barbearia no horário agendado e efetue o pagamento no cartão de débito.",
-        ];
-
-        $message = $paymentMessages[$paymentMethod] ?? "Agendamento realizado com sucesso! Você será atendido pelo(a) {$barberName}.";
-
         return redirect()->route('agendamento')
-            ->with('success', $message);
+            ->with('success', "Agendamento realizado com sucesso! Você será atendido pelo(a) {$barberName}. Compareça à barbearia no horário agendado.");
     }
 
-    /**
-     * Exibe os agendamentos (para admin).
-     */
-    public function index(Request $request)
-    {
-        $query = Agendamento::query();
-
-        // Filtro por data
-        if ($request->has('date') && $request->date) {
-            $query->where('data_agendamento', $request->date);
-        }
-
-        // Filtro por status
-        if ($request->has('status') && $request->status) {
-            $query->where('status', $request->status);
-        }
-
-        // Filtro por barbeiro
-        if ($request->has('barber') && $request->barber) {
-            $query->where('barbeiro', $request->barber);
-        }
-
-        // Ordena por data e hora
-        $agendamentos = $query->orderBy('data_agendamento')
-            ->orderBy('horario_agendamento')
-            ->paginate(15);
-
-        return view('admin.agendamentos.index', compact('agendamentos'));
-    }
-
-    /**
-     * Confirma um agendamento.
-     */
-    public function confirm(Agendamento $agendamento)
-    {
-        if (!$agendamento->canBeConfirmed()) {
-            return redirect()->back()->with('error', 'Este agendamento não pode ser confirmado.');
-        }
-
-        $agendamento->update(['status' => 'confirmed']);
-
-        return redirect()->back()->with('success', 'Agendamento confirmado com sucesso!');
-    }
-
-    /**
-     * Cancela um agendamento.
-     */
-    public function cancel(Request $request, Agendamento $agendamento)
-    {
-        if (!$agendamento->canBeCancelled()) {
-            return redirect()->back()->with('error', 'Este agendamento não pode ser cancelado.');
-        }
-
-        $agendamento->update([
-            'status' => 'cancelled',
-            'observacoes' => $request->input('reason', 'Cancelado pelo cliente'),
-        ]);
-
-        return redirect()->back()->with('success', 'Agendamento cancelado com sucesso!');
-    }
-
-    /**
-     * Marca o agendamento como concluído.
-     */
-    public function complete(Agendamento $agendamento)
-    {
-        if ($agendamento->status !== 'confirmed') {
-            return redirect()->back()->with('error', 'Apenas agendamentos confirmados podem ser marcados como concluídos.');
-        }
-
-        $agendamento->update(['status' => 'completed']);
-
-        return redirect()->back()->with('success', 'Agendamento marcado como concluído!');
-    }
 }
 

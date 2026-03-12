@@ -29,10 +29,6 @@ class Agendamento extends Model
         'data_agendamento',
         'horario_agendamento',
         'status',
-        'forma_pagamento',
-        'status_pagamento',
-        'stripe_payment_id',
-        'valor_pago',
         'observacoes',
     ];
 
@@ -45,7 +41,6 @@ class Agendamento extends Model
         'data_agendamento' => 'date',
         'horario_agendamento' => 'datetime:H:i',
         'preco' => 'decimal:2',
-        'valor_pago' => 'decimal:2',
     ];
 
     /**
@@ -55,28 +50,28 @@ class Agendamento extends Model
     {
         return [
             // Serviços Individuais
-            'simple_cut' => ['name' => 'Corte Simples / Máquina', 'price' => 19.90],
-            'social_cut' => ['name' => 'Corte Social / Fade / Surfer', 'price' => 29.90],
-            'scissor_cut' => ['name' => 'Corte Tesoura', 'price' => 49.90],
-            'cut_beard' => ['name' => 'Corte com Barba', 'price' => 59.90],
-            'cut_highlights' => ['name' => 'Corte + Luzes / Platinum', 'price' => 99.90],
-            'cut_pigmentation' => ['name' => 'Corte com Pigmentação', 'price' => 49.90],
-            'beard' => ['name' => 'Barba', 'price' => 29.90],
-            'beard_pigmentation' => ['name' => 'Barba com Pigmentação', 'price' => 39.90],
-            'cut_hydration' => ['name' => 'Corte + Hidratação', 'price' => 49.90],
-            'eyebrow' => ['name' => 'Sobrancelha', 'price' => 9.90],
-            'colorimetry_cut' => ['name' => 'Colorimetria + Corte', 'price' => 149.90],
-            'children_cut' => ['name' => 'Corte Infantil', 'price' => 39.90],
+            'corte_simples' => ['name' => 'Corte Simples / Máquina', 'preco' => 19.90],
+            'corte_social' => ['name' => 'Corte Social / Degradê / Surfista', 'preco' => 29.90],
+            'corte_tesoura' => ['name' => 'Corte à Tesoura', 'preco' => 49.90],
+            'corte_barba' => ['name' => 'Corte com Barba', 'preco' => 59.90],
+            'corte_luzes' => ['name' => 'Corte + Luzes / Platinado', 'preco' => 99.90],
+            'corte_pigmentacao' => ['name' => 'Corte com Pigmentação', 'preco' => 49.90],
+            'barba' => ['name' => 'Barba', 'preco' => 29.90],
+            'barba_pigmentacao' => ['name' => 'Barba com Pigmentação', 'preco' => 39.90],
+            'corte_hidratacao' => ['name' => 'Corte + Hidratação', 'preco' => 49.90],
+            'sobrancelha' => ['name' => 'Sobrancelha', 'preco' => 9.90],
+            'colorimetria_corte' => ['name' => 'Colorimetria + Corte', 'preco' => 149.90],
+            'corte_infantil' => ['name' => 'Corte Infantil', 'preco' => 39.90],
             
             // Planos Mensais
-            'simple_cut_plan' => ['name' => 'Plano Corte Simples (Mensal)', 'price' => 59.90],
-            'normal_cut_plan' => ['name' => 'Plano Corte Normal (Mensal)', 'price' => 99.90],
-            'cut_pigmentation_plan' => ['name' => 'Plano Corte + Pigmentação (Mensal)', 'price' => 179.90],
-            'children_cut_plan' => ['name' => 'Plano Corte Infantil (Mensal)', 'price' => 139.90],
-            'beard_plan' => ['name' => 'Plano Barba (Mensal)', 'price' => 99.90],
-            'eyebrow_plan' => ['name' => 'Plano Sobrancelha (Mensal)', 'price' => 29.90],
-            'hair_beard_plan' => ['name' => 'Plano Cabelo + Barba (Mensal)', 'price' => 219.90],
-            'scissor_cut_plan' => ['name' => 'Plano Corte Tesoura (Mensal)', 'price' => 180.00],
+            'plano_corte_simples' => ['name' => 'Plano Corte Simples (Mensal)', 'preco' => 59.90],
+            'plano_corte_normal' => ['name' => 'Plano Corte Normal (Mensal)', 'preco' => 99.90],
+            'plano_corte_pigmentacao' => ['name' => 'Plano Corte + Pigmentação (Mensal)', 'preco' => 179.90],
+            'plano_corte_infantil' => ['name' => 'Plano Corte Infantil (Mensal)', 'preco' => 139.90],
+            'plano_barba' => ['name' => 'Plano Barba (Mensal)', 'preco' => 99.90],
+            'plano_sobrancelha' => ['name' => 'Plano Sobrancelha (Mensal)', 'preco' => 29.90],
+            'plano_cabelo_barba' => ['name' => 'Plano Cabelo + Barba (Mensal)', 'preco' => 219.90],
+            'plano_corte_tesoura' => ['name' => 'Plano Corte Tesoura (Mensal)', 'preco' => 180.00],
         ];
     }
 
@@ -129,7 +124,7 @@ class Agendamento extends Model
     public function getServicePriceAttribute(): float
     {
         $services = self::getServiceOptions();
-        return $services[$this->servico]['price'] ?? 0;
+        return $services[$this->servico]['preco'] ?? 0;
     }
 
     /**
@@ -155,14 +150,6 @@ class Agendamento extends Model
     public function canBeConfirmed(): bool
     {
         return $this->status === 'pending';
-    }
-
-    /**
-     * Verifica se o pagamento foi realizado.
-     */
-    public function isPaid(): bool
-    {
-        return $this->status_pagamento === 'paid';
     }
 
     /**
@@ -205,4 +192,3 @@ class Agendamento extends Model
         return $query->where('data_agendamento', now()->toDateString());
     }
 }
-
