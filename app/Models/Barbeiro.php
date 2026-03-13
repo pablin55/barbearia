@@ -33,6 +33,14 @@ class Barbeiro extends Model
     }
 
     /**
+     * Relação com usuário (login)
+     */
+    public function user()
+    {
+        return $this->hasOne(\App\Models\User::class);
+    }
+
+    /**
      * Obtém o caminho completo da foto
      */
     public function getFotoUrlAttribute(): string
@@ -41,7 +49,6 @@ class Barbeiro extends Model
             return asset('img/barbearia.jpeg');
         }
         
-        // Retorna a URL direta do arquivo via storage
         return asset('storage/' . $this->foto);
     }
 

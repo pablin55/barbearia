@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Database\Eloquent\Builder;
 
 class BarbeiroResource extends Resource
 {
@@ -70,6 +71,7 @@ class BarbeiroResource extends Resource
     {
         $table = BarbeirosTable::configure($table);
 
+        // barbeiro não pode editar
         if (auth()->user()?->role !== 'admin') {
             $table = $table
                 ->actions([])
@@ -92,5 +94,12 @@ class BarbeiroResource extends Resource
             'view'   => ViewBarbeiro::route('/{record}'),
             'edit'   => EditBarbeiro::route('/{record}/edit'),
         ];
+    }
+
+    // 🔹 Carrega sempre o relacionamento user para mostrar email na tabela
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['user']);
     }
 }
