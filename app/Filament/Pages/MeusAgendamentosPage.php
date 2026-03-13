@@ -26,9 +26,14 @@ class MeusAgendamentosPage extends Page
     public function carregarAgendamentos(): void
     {
         $user = Auth::user();
+        $barbeiroId = $user->barbeiro_id;
         
         $query = Agendamento::query()
-            ->where('barbeiro', $user->name)
+            ->when($barbeiroId, function ($q) use ($barbeiroId) {
+                $q->where('barbeiro_id', $barbeiroId);
+            }, function ($q) use ($user) {
+                $q->where('barbeiro', $user->name);
+            })
             ->orderBy('data_agendamento')
             ->orderBy('horario_agendamento');
 

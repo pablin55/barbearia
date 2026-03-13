@@ -25,12 +25,13 @@ class CreateBarbeiro extends CreateRecord
         $senha = Str::random(8);
 
         // criar usuário
-        $user = User::create([
+$user = User::create([
             'name' => $barbeiro->nome,
             'email' => $email,
             'password' => Hash::make($senha),
             'role' => 'barbeiro',
             'senha_inicial' => $senha,
+            'barbeiro_id' => $barbeiro->id,
         ]);
 
         // ligar usuário ao barbeiro

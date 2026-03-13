@@ -83,8 +83,13 @@ class AgendamentoResource extends Resource
         }
 
         // Se for barbeiro, mostra apenas os agendamentos dele
-        if ($user->role === 'barbeiro' && $user->barbeiro_id) {
-            $query->where('barbeiro_id', $user->barbeiro_id);
+        if ($user->role === 'barbeiro') {
+            $barbeiroId = $user->barbeiro_id;
+            $barbeiroName = $user->name;
+            $query->where(function($q) use ($barbeiroId, $barbeiroName) {
+                $q->where('barbeiro_id', $barbeiroId)
+                  ->orWhere('barbeiro', $barbeiroName);
+            });
         }
 
         // Se for vendedor, mostra apenas os agendamentos dos barbeiros atribuidos
@@ -93,5 +98,10 @@ class AgendamentoResource extends Resource
         }
 
         return $query;
+    }
+
+    public static function canViewAny(): bool
+    {
+        return true;
     }
 }
