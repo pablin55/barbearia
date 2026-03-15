@@ -30,13 +30,9 @@ class DashboardStats extends BaseWidget
         $isBarbeiro = $user && $user->role === 'barbeiro';
         $isVendedor = $user && $user->role === 'vendedor';
         
-        if ($isBarbeiro && $barbeiroId) {
-            $baseQuery->where('barbeiro_id', $barbeiroId);
-        } elseif ($isBarbeiro && !$barbeiroId) {
-            // Fallback: se não tiver barbeiro_id, tenta pelo nome
-            $baseQuery->where('barbeiro', $user->name);
+        if ($isBarbeiro) {
+            $baseQuery->whereRaw('LOWER(barbeiro) = ?', [strtolower($user->name)]);
         } elseif ($isVendedor && $user->barbeiros) {
-            // Vendedor vê apenas os agendamentos dos barbeiros atribuidos
             $baseQuery->whereIn('barbeiro_id', $user->barbeiros);
         }
 

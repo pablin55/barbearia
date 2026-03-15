@@ -48,8 +48,7 @@ class FaturamentoStats extends BaseWidget
         } else {
             // Barbeiro vê apenas seus dados usando barbeiro_id
             $barbeiroQuery = Agendamento::query()
-                ->when($barbeiroId, fn($q) => $q->where('barbeiro_id', $barbeiroId))
-                ->when(!$barbeiroId, fn($q) => $q->where('barbeiro', $user->name));
+                ->whereRaw('LOWER(barbeiro) = ?', [strtolower($user->name)]);
 
             $faturamentoHoje = (clone $barbeiroQuery)
                 ->whereDate('data_agendamento', $hoje)

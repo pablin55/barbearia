@@ -120,10 +120,10 @@ class AgendamentosBarbeiroTable
                     ->action(function ($record) {
                         if ($record->pago) {
                             // Marcar como não pago
-                            $record->update(['pago' => false, 'status_pagamento' => 'pending']);
+                            $record->update(['pago' => false]);
                         } else {
                             // Marcar como pago
-                            $record->update(['pago' => true, 'status_pagamento' => 'paid']);
+                            $record->update(['pago' => true]);
                             
                             // Criar faturamento
                             Faturamento::create([
@@ -136,17 +136,6 @@ class AgendamentosBarbeiroTable
                     })
                     ->visible(fn ($record) => in_array($record->status, ['pending', 'confirmed', 'completed'])),
 
-                // Botão Confirmar
-                Action::make('confirmar')
-                    ->label('Confirmar')
-                    ->color('info')
-                    ->icon('heroicon-o-check-circle')
-                    ->requiresConfirmation()
-                    ->action(function ($record) {
-                        $record->update(['status' => 'confirmed']);
-                    })
-                    ->visible(fn ($record) => $record->status === 'pending'),
-
                 // Botão Concluído
                 Action::make('concluir')
                     ->label('Concluído')
@@ -156,7 +145,7 @@ class AgendamentosBarbeiroTable
                     ->action(function ($record) {
                         $record->update(['status' => 'completed']);
                     })
-                    ->visible(fn ($record) => in_array($record->status, ['pending', 'confirmed'])),
+                    ->visible(fn ($record) => $record->status === 'pending'),
 
                 // Botão Cliente Cancelou
                 Action::make('cancelar')

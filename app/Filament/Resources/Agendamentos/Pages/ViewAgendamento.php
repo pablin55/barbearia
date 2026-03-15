@@ -29,11 +29,11 @@ class ViewAgendamento extends ViewRecord
                 ->action(function ($record) {
                     if ($record->pago) {
                         // Marcar como não pago
-                        $record->update(['pago' => false, 'status_pagamento' => 'pending']);
+                        $record->update(['pago' => false]);
                         Faturamento::where('agendamento_id', $record->id)->delete();
                     } else {
                         // Marcar como pago
-                        $record->update(['pago' => true, 'status_pagamento' => 'paid']);
+                        $record->update(['pago' => true]);
 
                         Faturamento::updateOrCreate(
                             ['agendamento_id' => $record->id],
@@ -47,17 +47,6 @@ class ViewAgendamento extends ViewRecord
                 })
                 ->visible(fn ($record) => in_array($record->status, ['pending', 'confirmed', 'completed']));
 
-            // Botão Confirmar
-            $actions[] = Action::make('confirmar')
-                ->label('Confirmar')
-                ->color('info')
-                ->icon('heroicon-o-check-circle')
-                ->requiresConfirmation()
-                ->action(function ($record) {
-                    $record->update(['status' => 'confirmed']);
-                })
-                ->visible(fn ($record) => $record->status === 'pending');
-
             // Botão Concluído
             $actions[] = Action::make('concluir')
                 ->label('Concluído')
@@ -67,7 +56,7 @@ class ViewAgendamento extends ViewRecord
                 ->action(function ($record) {
                     $record->update(['status' => 'completed']);
                 })
-                ->visible(fn ($record) => in_array($record->status, ['pending', 'confirmed']));
+                ->visible(fn ($record) => $record->status === 'pending');
 
             // Botão Cliente Cancelou
             $actions[] = Action::make('cancelar')

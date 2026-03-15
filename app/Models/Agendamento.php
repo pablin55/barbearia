@@ -30,6 +30,9 @@ class Agendamento extends Model
         'horario_agendamento',
         'status',
         'observacoes',
+        'pago',
+        'valor_pago',
+        'forma_pagamento',
     ];
 
     /**

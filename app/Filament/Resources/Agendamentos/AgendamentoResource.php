@@ -85,10 +85,10 @@ class AgendamentoResource extends Resource
         // Se for barbeiro, mostra apenas os agendamentos dele
         if ($user->role === 'barbeiro') {
             $barbeiroId = $user->barbeiro_id;
-            $barbeiroName = $user->name;
+            $barbeiroName = strtolower($user->name);
             $query->where(function($q) use ($barbeiroId, $barbeiroName) {
                 $q->where('barbeiro_id', $barbeiroId)
-                  ->orWhere('barbeiro', $barbeiroName);
+                  ->orWhereRaw('LOWER(barbeiro) = ?', [$barbeiroName]);
             });
         }
 
