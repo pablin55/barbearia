@@ -208,8 +208,21 @@
                     <option value="17:30">17:30</option>
                     <option value="18:00">18:00</option>
                 </select>
-            </div>
+                
+              <!-- ALERTA -->
+    <div id="alert-horario" style="
+display:none;
+background:#ff4d4f;
+color:white;
+padding:12px;
+border-radius:8px;
+margin-top:10px;
+font-weight:500;
+">
+⚠️ Este horário acabou de ser reservado por outro cliente. Escolha outro horário.
+</div>
 
+</div>
             <!-- Observações Adicionais -->
             <div class="form-group">
                 <label for="notes">{{ __('Additional Notes') }} ({{ __('Optional') }})</label>
@@ -271,6 +284,42 @@
             });
         });
     });
+    document.addEventListener("DOMContentLoaded", function () {
+
+    const dateInput = document.getElementById("date");
+    const timeInput = document.getElementById("time");
+    const alerta = document.getElementById("alert-horario");
+
+    timeInput.addEventListener("change", function () {
+
+        const date = dateInput.value;
+        const time = timeInput.value;
+
+        if (!date || !time) return;
+
+        fetch(`/verificar-horario?date=${date}&time=${time}`)
+        .then(response => response.json())
+        .then(data => {
+
+            if (data.ocupado === true) {
+
+                alerta.style.display = "block";
+                timeInput.value = "";
+
+            } else {
+
+                alerta.style.display = "none";
+
+            }
+
+        })
+        .catch(error => {
+            console.log("Erro ao verificar horário:", error);
+        });
+
+    });
+
+});
 </script>
 @endpush
 

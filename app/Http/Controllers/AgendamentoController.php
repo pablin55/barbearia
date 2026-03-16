@@ -106,6 +106,17 @@ class AgendamentoController extends Controller
         return redirect()->route('agendamento')
             ->with('success', "Agendamento realizado com sucesso! Você será atendido pelo(a) {$barberName}. Compareça à barbearia no horário agendado.");
     }
+public function verificarHorario(Request $request)
+{
+    $existe = Agendamento::where('data_agendamento', $request->date)
+        ->where('horario_agendamento', $request->time)
+        ->whereIn('status', ['pending', 'confirmed'])
+        ->exists();
+
+    return response()->json([
+        'ocupado' => $existe
+    ]);
+}
 
 }
 

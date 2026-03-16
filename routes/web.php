@@ -46,5 +46,5 @@ Route::get('/agendamento', [AgendamentoController::class, 'create'])->name('agen
 // Rota POST: Processa o formulário de agendamento
 Route::post('/agendamento', [AgendamentoController::class, 'store'])->name('agendamento.store');
 
-
+Route::get('/verificar-horario', [AgendamentoController::class, 'verificarHorario']);
 
