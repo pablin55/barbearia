@@ -1,0 +1,19 @@
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+$app = require_once __DIR__.'/bootstrap/app.php';
+
+$kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+$kernel->bootstrap();
+
+$users = App\Models\User::all(['id', 'name', 'email', 'role', 'barbeiro_id']);
+
+if ($users->isEmpty()) {
+    echo "Nenhum usuario encontrado!\n";
+} else {
+    foreach ($users as $u) {
+        echo $u->id . ' | ' . $u->name . ' | ' . $u->email . ' | role: ' . $u->role . ' | barbeiro_id: ' . $u->barbeiro_id . "\n";
+    }
+}
+
