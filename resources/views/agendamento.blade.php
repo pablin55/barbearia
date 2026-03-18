@@ -321,5 +321,88 @@ font-weight:500;
 
 });
 </script>
+
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- JS Alert Sucesso -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('appointment-form');
+    
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        formData.append('ajax', '1');
+        
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Confirmando...';
+        submitBtn.disabled = true;
+        
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData
+            });
+            
+            const data = await response.json().catch(() => ({}));
+            
+            if (data.success) {
+                Swal.fire({
+                    title: 'Agendamento Confirmado! 🎉',
+                    html: `
+                        <div style="text-align: left;">
+                            <p style="color: #fff; font-size: 1.2em;"><strong>Obrigado, ${data.nome_cliente}! </strong></p>
+                            <div style="background: linear-gradient(135deg, #333 0%, #444 100%); padding: 20px; border-radius: 12px; border-left: 5px solid #fff; margin: 20px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                                <p style="color: #fff; margin: 0 0 8px 0;"><strong>Serviço:</strong> ${data.servico_nome}</p>
+                                <p style="color: #fff; margin: 0 0 8px 0;"><strong>Barbeiro:</strong> ${data.barbeiro_nome}</p>
+                                <p style="color: #fff; margin: 0 0 8px 0;"><strong>Data/Hora:</strong> ${data.data} às ${data.hora}</p>
+                                <p style="color: #fff; font-weight: 700; font-size: 1.1em; margin: 0;"><strong>💰 Preço: R$ ${data.preco}</strong></p>
+                            </div>
+                            <p style="color: #fff; font-size: 1em; font-weight: 600;">📧 Confirmação enviada para seu email!</p>
+                            <p style="color: #aaa; font-size: 0.9em; margin-top: 10px;">Você receberá lembrete 1 dia antes! ⏰</p>
+                        </div>
+                    `,
+                    icon: 'success',
+                    confirmButtonText: 'Perfeito!',
+                    confirmButtonColor: '#e9d013',
+                    background: '#2a2a2a',
+                    color: '#fff',
+                    customClass: {
+                        popup: 'swal-custom',
+                        title: 'swal-title',
+                        htmlContainer: 'swal-html',
+                        confirmButton: 'swal-btn'
+                    },
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                });
+                
+                form.reset();
+                document.getElementById('alert-horario').style.display = 'none';
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ops!',
+                    text: data.message || 'Erro ao agendar. Tente novamente.',
+                    confirmButtonColor: '#dc3545'
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Falha na conexão. Recarregue e tente novamente.',
+                confirmButtonColor: '#dc3545'
+            });
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+});
+</script>
 @endpush
 

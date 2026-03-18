@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Agendamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Mail\ConfirmacaoAgendamento;
+use Illuminate\Support\Facades\Mail;
 
 class AgendamentoController extends Controller
 {
@@ -42,7 +44,7 @@ class AgendamentoController extends Controller
             'terms.required' => 'Você deve aceitar os termos de uso.',
         ]);
 
-        // Se a validação falhar, retorna com os erros
+        // Se a validação falhar
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
@@ -54,38 +56,36 @@ class AgendamentoController extends Controller
         $serviceKey = $request->input('service');
         $price = $services[$serviceKey]['preco'] ?? 0;
 
-        // Verifica se o serviço existe
         if (!$price) {
             return redirect()->back()
                 ->with('error', 'Serviço inválido.')
                 ->withInput();
         }
 
-        // Obtém o barbeiro selecionado
+        // Obtém barbeiro selecionado
         $barber = $request->input('barber', 'any');
-        
-        // Mapeamento entre a chave do barbeiro e o nome na tabela barbeiros
-        // Usa o método getBarberOptions() do modelo Agendamento para obter os nomes corretos
+
+        // Buscar barbeiro na tabela barbeiros
         $barberOptions = Agendamento::getBarberOptions();
         $barbeiroId = null;
-        
+
         if ($barber !== 'any' && isset($barberOptions[$barber])) {
+
             $barberName = $barberOptions[$barber]['name'];
-            // Remove aspas e caracteres especiais do nome para busca
             $searchName = str_replace(['"', "'"], '', $barberName);
-            // Busca o barbeiro pelo nome na tabela barbeiros
+
             $barbeiro = \App\Models\Barbeiro::where('nome', 'like', '%' . $searchName . '%')->first();
+
             if ($barbeiro) {
                 $barbeiroId = $barbeiro->id;
             }
         }
 
-        // Verifica se o horário já está ocupado (considerando também o barbeiro se selecionado)
+        // Verificar se o horário já está ocupado
         $query = Agendamento::where('data_agendamento', $request->input('date'))
             ->where('horario_agendamento', $request->input('time'))
             ->whereIn('status', ['pending', 'confirmed']);
 
-        // Se o cliente escolheu um barbeiro específico, verifica só nesse barbeiro
         if ($barber !== 'any') {
             $query->where(function ($q) use ($barber) {
                 $q->where('barbeiro', $barber)
@@ -101,7 +101,7 @@ class AgendamentoController extends Controller
                 ->withInput();
         }
 
-        // Cria o agendamento com colunas em português
+        // Criar agendamento
         $agendamento = Agendamento::create([
             'nome_cliente' => $request->input('name'),
             'telefone' => $request->input('phone'),
@@ -116,24 +116,51 @@ class AgendamentoController extends Controller
             'observacoes' => $request->input('notes'),
         ]);
 
-        // Obtém informações do barbeiro
+        // Enviar email de confirmação
+        if ($agendamento->email) {
+            Mail::to($agendamento->email)
+                ->send(new ConfirmacaoAgendamento($agendamento));
+        }
+
+        // Nome do barbeiro para mensagem
         $barbers = Agendamento::getBarberOptions();
         $barberName = $barbers[$barber]['name'] ?? 'Qualquer Barbeiro';
 
+        // Nome do barbeiro para resposta
+        $barbers = Agendamento::getBarberOptions();
+        $barberName = $barbers[$barber]['name'] ?? 'Qualquer Barbeiro';
+        $serviceName = $services[$serviceKey]['name'] ?? $serviceKey;
+
+        // JSON response para AJAX
+        if ($request->ajax || $request->has('ajax')) {
+            return response()->json([
+                'success' => true,
+                'nome_cliente' => $request->input('name'),
+                'servico_nome' => $serviceName,
+                'barbeiro_nome' => $barberName,
+                'data' => date('d/m/Y', strtotime($request->input('date'))),
+                'hora' => $request->input('time'),
+                'preco' => 'R$ ' . number_format($price, 2, ',', '.')
+            ]);
+        }
+
+        // Normal redirect
         return redirect()->route('agendamento')
             ->with('success', "Agendamento realizado com sucesso! Você será atendido pelo(a) {$barberName}. Compareça à barbearia no horário agendado.");
     }
-public function verificarHorario(Request $request)
-{
-    $existe = Agendamento::where('data_agendamento', $request->date)
-        ->where('horario_agendamento', $request->time)
-        ->whereIn('status', ['pending', 'confirmed'])
-        ->exists();
 
-    return response()->json([
-        'ocupado' => $existe
-    ]);
+    /**
+     * Verifica se um horário já está ocupado (usado via AJAX)
+     */
+    public function verificarHorario(Request $request)
+    {
+        $existe = Agendamento::where('data_agendamento', $request->date)
+            ->where('horario_agendamento', $request->time)
+            ->whereIn('status', ['pending', 'confirmed'])
+            ->exists();
+
+        return response()->json([
+            'ocupado' => $existe
+        ]);
+    }
 }
-
-}
-

@@ -33,6 +33,7 @@ class Agendamento extends Model
         'pago',
         'valor_pago',
         'forma_pagamento',
+        'reminder_sent_at',
     ];
 
     /**
@@ -44,6 +45,7 @@ class Agendamento extends Model
         'data_agendamento' => 'date',
         'horario_agendamento' => 'datetime:H:i',
         'preco' => 'decimal:2',
+        'reminder_sent_at' => 'datetime',
     ];
 
     /**
