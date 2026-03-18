@@ -12,8 +12,8 @@ use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use App\Models\User;
 
 class BarbeirosTable
@@ -28,28 +28,47 @@ class BarbeirosTable
 
             $recordActions[] = EditAction::make();
 
-            $recordActions[] = Action::make('resetarSenha')
-                ->label('Resetar senha')
-                ->icon('heroicon-o-key')
+            $recordActions[] = Action::make('mudarSenha')
+                ->label('Mudar acesso')
+                ->icon('heroicon-o-lock-closed')
                 ->color('warning')
-                ->requiresConfirmation()
-                ->action(function ($record) {
+                ->form([
 
-                    $novaSenha = Str::random(8);
+                    TextInput::make('email')
+                        ->label('Novo Email')
+                        ->email()
+                        ->required()
+                        ->default(fn ($record) => $record->user?->email),
 
-                    // se não existir usuário cria
+                    TextInput::make('email_confirmation')
+                        ->label('Confirmar Email')
+                        ->email()
+                        ->required()
+                        ->same('email'),
+
+                    TextInput::make('password')
+                        ->label('Nova Senha')
+                        ->password()
+                        ->required()
+                        ->minLength(6),
+
+                    TextInput::make('password_confirmation')
+                        ->label('Confirmar Senha')
+                        ->password()
+                        ->required()
+                        ->same('password'),
+                ])
+                ->action(function ($record, array $data) {
+
                     if (!$record->user) {
-
-                        $email = Str::slug($record->nome, '.') . rand(1, 99) . '@barbearia.com';
 
                         $user = User::create([
                             'name' => $record->nome,
-                            'email' => $email,
-                            'password' => Hash::make($novaSenha),
+                            'email' => $data['email'],
+                            'password' => Hash::make($data['password']),
                             'role' => 'barbeiro',
                         ]);
 
-                        // conecta o usuário ao barbeiro
                         $record->user()->save($user);
 
                     } else {
@@ -57,27 +76,27 @@ class BarbeirosTable
                         $user = $record->user;
 
                         $user->update([
-                            'password' => Hash::make($novaSenha),
+                            'email' => $data['email'],
+                            'password' => Hash::make($data['password']),
                         ]);
-
-                        $email = $user->email;
                     }
 
+                    // 📱 WhatsApp
                     $telefone = preg_replace('/[^0-9]/', '', $record->telefone);
 
                     $mensagem = urlencode(
                         "Olá {$record->nome}! 👋\n\n".
-                        "Sua senha foi redefinida.\n\n".
-                        "Login: {$email}\n".
-                        "Senha: {$novaSenha}\n\n".
-                        "Acesse o sistema e altere sua senha."
+                        "Seus dados de acesso foram atualizados.\n\n".
+                        "Login: {$data['email']}\n".
+                        "Senha: {$data['password']}\n\n".
+                        "Acesse o sistema e altere sua senha se desejar."
                     );
 
                     $linkWhatsapp = "https://wa.me/55{$telefone}?text={$mensagem}";
 
                     Notification::make()
-                        ->title('Senha redefinida')
-                        ->body("Login: {$email} | Nova senha: {$novaSenha}")
+                        ->title('Acesso atualizado')
+                        ->body("Email: {$data['email']}")
                         ->success()
                         ->persistent()
                         ->actions([

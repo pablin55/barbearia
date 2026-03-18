@@ -13,11 +13,6 @@ use App\Filament\Pages\MeusAgendamentosPage;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Support\Enums\Alignment;
-use Filament\Support\Enums\VerticalAlignment;
-
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -34,15 +29,20 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+
+            // ✅ VOLTA PARA LOGIN PADRÃO
             ->login()
+
             ->brandName(fn () => match(auth()->user()?->role) {
                 'barbeiro' => 'Barbearia - Barbeiro',
                 'vendedor' => 'Barbearia - Vendedor',
                 default => 'Barbearia Pro',
             })
+
             ->brandLogo(asset('img/pbar.png'))
             ->brandLogoHeight(fn () => auth()->check() && auth()->user()->role === 'barbeiro' ? '2.5rem' : '3rem')
             ->favicon(asset('img/favicon.ico'))
+
             ->colors([
                 'primary' => [
                     50 => '#fef9e7',
@@ -50,7 +50,7 @@ class AdminPanelProvider extends PanelProvider
                     200 => '#fbe48c',
                     300 => '#f8d755',
                     400 => '#f6c91e',
-                    500 => '#d4a412', // Dourado principal
+                    500 => '#d4a412',
                     600 => '#b8890f',
                     700 => '#996c0c',
                     800 => '#7a5509',
@@ -63,13 +63,22 @@ class AdminPanelProvider extends PanelProvider
                 'success' => Color::Emerald,
                 'warning' => Color::Amber,
             ])
+
             ->font('Poppins')
             ->sidebarCollapsibleOnDesktop()
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
+
+            ->discoverResources(
+                in: app_path('Filament/Resources'),
+                for: 'App\\Filament\\Resources'
+            )
+
             ->pages([
                 Dashboard::class,
-                ...(auth()->check() && auth()->user()->role === 'barbeiro' ? [MeusAgendamentosPage::class] : []),
+                ...(auth()->check() && auth()->user()->role === 'barbeiro'
+                    ? [MeusAgendamentosPage::class]
+                    : []),
             ])
+
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -81,9 +90,11 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+
             ->authMiddleware([
                 Authenticate::class,
             ])
+
             ->spa();
     }
 }

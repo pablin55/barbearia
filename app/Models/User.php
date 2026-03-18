@@ -43,31 +43,34 @@ class User extends Authenticatable
     }
 
     /**
-     * Verifica se é admin
+     * ============================
+     * 🔐 TIPOS DE USUÁRIO
+     * ============================
      */
+
     public function isAdmin()
     {
         return $this->role === 'admin';
     }
 
-    /**
-     * Verifica se é barbeiro
-     */
     public function isBarbeiro()
     {
         return $this->role === 'barbeiro';
     }
 
-    /**
-     * Verifica se é vendedor
-     */
     public function isVendedor()
     {
         return $this->role === 'vendedor';
     }
 
     /**
-     * Relacionamento com barbeiro (para usuarios que sao barbeiros)
+     * ============================
+     * 🔗 RELACIONAMENTOS
+     * ============================
+     */
+
+    /**
+     * Um usuário barbeiro pertence a um barbeiro
      */
     public function barbeiro()
     {
@@ -75,8 +78,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Relacionamento com barbeiros (para vendedores)
-     * Um vendedor pode gerenciar varios barbeiros
+     * Um vendedor pode gerenciar vários barbeiros
      */
     public function barbeiten()
     {
@@ -89,9 +91,44 @@ class User extends Authenticatable
     }
 
     /**
-     * Obtem os IDs dos barbeiros que o usuario pode gerenciar
-     * Para vendedores, retorna os barbeiros atribuidos
-     * Para barbeiros, retorna apenas seu proprio ID
+     * ============================
+     * 🚫 VERIFICAÇÃO DE ATIVO
+     * ============================
+     */
+
+    /**
+     * Verifica se o usuário (barbeiro) está ativo
+     * - Admin e vendedor sempre retornam true
+     * - Barbeiro depende do campo "ativo" na tabela barbeiros
+     */
+    public function isAtivo(): bool
+    {
+        // Admin sempre ativo
+        if ($this->isAdmin()) {
+            return true;
+        }
+
+        // Vendedor sempre ativo
+        if ($this->isVendedor()) {
+            return true;
+        }
+
+        // Se for barbeiro, verifica o status
+        if ($this->isBarbeiro()) {
+            return optional($this->barbeiro)->ativo === true;
+        }
+
+        return false;
+    }
+
+    /**
+     * ============================
+     * 🎯 PERMISSÕES DE ACESSO
+     * ============================
+     */
+
+    /**
+     * Retorna IDs dos barbeiros que o usuário pode acessar
      */
     public function getAllowedBarberIds(): array
     {
@@ -111,7 +148,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Verifica se o usuario pode ver agendamentos de um barbeiro especifico
+     * Verifica se pode ver agendamentos de um barbeiro
      */
     public function canViewBarberAgendamento(int $barbeiroId): bool
     {
@@ -120,7 +157,19 @@ class User extends Authenticatable
         }
 
         $allowedBarbers = $this->getAllowedBarberIds();
-        
+
         return in_array($barbeiroId, $allowedBarbers);
     }
+        public function canLogin():  bool
+    {
+        if ($this->isAdmin() || $this->isVendedor()) {
+            return true;
+        }
+
+        if ($this->isBarbeiro()) {
+            return optional($this->barbeiro)->ativo === true;
+        }
+
+        return false;
+}
 }
