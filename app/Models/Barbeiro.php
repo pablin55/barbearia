@@ -43,15 +43,14 @@ class Barbeiro extends Model
     /**
      * Obtém o caminho completo da foto
      */
-    public function getFotoUrlAttribute(): string
+    public function getFotoUrlAttribute(): ?string
     {
         if (empty($this->foto)) {
-            return asset('img/barbearia.jpeg');
+            return null; // não retorna nada
         }
-        
+
         return asset('storage/' . $this->foto);
     }
-
     /**
      * Obtém status formatado
      */

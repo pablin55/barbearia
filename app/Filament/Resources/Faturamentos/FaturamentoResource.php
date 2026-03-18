@@ -19,9 +19,20 @@ use Illuminate\Database\Eloquent\Builder;
 
 class FaturamentoResource extends Resource
 {
+    public static function  getNavigationGroup(): ?string
+{ 
+    return 'Gestão da Barbearia';
+}
     protected static ?string $model = Faturamento::class;
+    
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::ChartBar;
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+    
 
     protected static ?string $recordTitleAttribute = 'faturamento';
 
@@ -39,6 +50,9 @@ class FaturamentoResource extends Resource
     {
         return FaturamentosTable::configure($table);
     }
+
+
+
 
     // ✅ ADICIONE ESTE MÉTODO: Controla se o menu aparece no sidebar
     public static function canViewAny(): bool

@@ -19,6 +19,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 class BarbeiroResource extends Resource
 {
+
+public static function getNavigationGroup(): ?string
+{
+    return 'Atendimento';
+}
+
+public static function getNavigationSort(): ?int
+{
+    return 1; // ajusta a ordem dentro do grupo
+}
     protected static ?string $model = Barbeiro::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;

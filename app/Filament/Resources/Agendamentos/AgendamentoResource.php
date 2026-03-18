@@ -20,6 +20,43 @@ use Illuminate\Database\Eloquent\Builder;
 
 class AgendamentoResource extends Resource
 {
+ public static function getNavigationBadge(): ?string
+{
+    $user = auth()->user();
+
+    // Se for admin, mostra o total geral
+    if ($user->email === 'admin@admin.com') {
+    return static::getModel()::count();
+}
+
+      // Se for barbeiro, conta apenas os agendamentos dele
+    if ($user->role === 'barbeiro') {
+        $barbeiroId = $user->barbeiro_id;
+        $barbeiroName = strtolower($user->name);
+
+        return static::getModel()::where(function($q) use ($barbeiroId, $barbeiroName) {
+            $q->where('barbeiro_id', $barbeiroId)
+              ->orWhereRaw('LOWER(barbeiro) = ?', [$barbeiroName]);
+        })->count();
+    }
+
+    // Se for vendedor, conta os agendamentos dos barbeiros atribuídos
+    if ($user->role === 'vendedor' && $user->barbeiros) {
+        return static::getModel()::whereIn('barbeiro_id', $user->barbeiros)->count();
+    }
+
+    // Caso não se encaixe em nenhum papel, retorna null (sem badge)
+    return null;
+}
+ public static function getNavigationGroup(): ?string
+    {
+        return 'Atendimento';
+    }
+
+public static function getNavigationSort(): ?int
+{
+    return 1; // ajusta a ordem dentro do grupo
+}
     protected static ?string $model = Agendamento::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendarDays;
