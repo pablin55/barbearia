@@ -41,7 +41,7 @@ class AdminPanelProvider extends PanelProvider
 
             ->brandLogo(asset('img/pbar.png'))
             ->brandLogoHeight(fn () => auth()->check() && auth()->user()->role === 'barbeiro' ? '2.5rem' : '3rem')
-            ->favicon(asset('img/favicon.ico'))
+            ->favicon(asset('img/pbar.png'))
 
             ->colors([
                 'primary' => [
